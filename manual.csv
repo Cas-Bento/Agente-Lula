@@ -1,0 +1,6 @@
+# CONTINGÊNCIA. Use somente quando um coletor estiver quebrado ou desativado.
+# Cada linha passa pela mesma validação de sanidade e deduplicação. A URL precisa ser de domínio oficial.
+# ref no formato AAAA-MM-DD (mensal = dia 01; trimestral = dia 01 do último mês do trimestre).
+# Exemplo (remova o # para usar):
+# cesta_sp,2026-09-01,850.12,https://www.dieese.org.br/...
+id,ref,valor,url
