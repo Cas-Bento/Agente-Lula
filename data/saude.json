@@ -1,0 +1,446 @@
+{
+ "indicadores": {
+  "dolar": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-26",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "euro": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-26",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "selic": {
+   "falhas_consecutivas": 1,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026",
+   "sugestao": "Instabilidade ou bloqueio na fonte. Se persistir, testar a URL manualmente e verificar mudança de endpoint.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "amarelo"
+  },
+  "ipca_m": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-09-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "ipca_12": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-09-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "dbgg": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-08-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "dlsp": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-08-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "primario": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-08-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "ibcbr": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-08-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "salario_min": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "focus_ipca": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (Focus, API Olinda)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-23",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "focus_selic": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (Focus, API Olinda)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-23",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "focus_pib": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "Banco Central do Brasil (Focus, API Olinda)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-23",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "desocup": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "IBGE (SIDRA)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-08-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "ocup": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "IBGE (SIDRA)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-08-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "informal": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "IBGE (SIDRA)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-06-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "renda_real": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "IBGE (SIDRA)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-08-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "pib_tri": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "IBGE (SIDRA)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-06-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "gini": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-27",
+   "ultimo_dado_novo": "2026-10-27",
+   "fonte": "IBGE (SIDRA)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2025-12-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "inseg_grave": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "IBGE (SIDRA)",
+   "ativo": false,
+   "ultimo_erro": "Identificar a tabela SIDRA do suplemento de segurança alimentar",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  },
+  "pobreza": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "IBGE (SIDRA)",
+   "ativo": false,
+   "ultimo_erro": "SIS é publicada em planilhas; confirmar se há tabela SIDRA equivalente",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  },
+  "ext_pobreza": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "IBGE (SIDRA)",
+   "ativo": false,
+   "ultimo_erro": "Idem pobreza",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  },
+  "cesta_sp": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "DIEESE (Pesquisa Nacional da Cesta Básica)",
+   "ativo": false,
+   "ultimo_erro": "Definir a URL da tabela mensal do DIEESE e conferir o layout",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  },
+  "caged": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "Ministério do Trabalho e Emprego (Novo Caged)",
+   "ativo": false,
+   "ultimo_erro": "Definir a URL da planilha oficial mensal e os rótulos de linha/coluna",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  },
+  "dpf": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "Tesouro Nacional (Tesouro Transparente/CKAN)",
+   "ativo": false,
+   "ultimo_erro": "Definir o id do dataset CKAN e as colunas de data e valor",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  },
+  "cds": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "Sem fonte gratuita e estável identificada",
+   "ativo": false,
+   "ultimo_erro": "Desativado por decisão de arquitetura; ver README",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  },
+  "sm_cestas": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "Calculado: BCB SGS 1619 / DIEESE cesta SP",
+   "ativo": true,
+   "ultimo_erro": "aguardando cesta_sp",
+   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": null,
+   "atrasado": false,
+   "status": "cinza"
+  }
+ },
+ "fontes": {
+  "Banco Central do Brasil (SGS)": "amarelo",
+  "Banco Central do Brasil (Focus, API Olinda)": "verde",
+  "IBGE (SIDRA)": "verde",
+  "DIEESE (Pesquisa Nacional da Cesta Básica)": "cinza",
+  "Ministério do Trabalho e Emprego (Novo Caged)": "cinza",
+  "Tesouro Nacional (Tesouro Transparente/CKAN)": "cinza",
+  "Sem fonte gratuita e estável identificada": "cinza",
+  "Calculado: BCB SGS 1619 / DIEESE cesta SP": "cinza"
+ },
+ "integridade": [],
+ "status_geral": "amarelo",
+ "atualizado": "2026-10-27",
+ "ultima_execucao": {
+  "data": "2026-10-27",
+  "resultados": {
+   "dolar": {
+    "status": "ok",
+    "novos": 500
+   },
+   "euro": {
+    "status": "ok",
+    "novos": 500
+   },
+   "selic": {
+    "status": "erro",
+    "novos": 0,
+    "erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026",
+    "tipo": "rede"
+   },
+   "ipca_m": {
+    "status": "ok",
+    "novos": 24
+   },
+   "ipca_12": {
+    "status": "ok",
+    "novos": 24
+   },
+   "dbgg": {
+    "status": "ok",
+    "novos": 23
+   },
+   "dlsp": {
+    "status": "ok",
+    "novos": 23
+   },
+   "primario": {
+    "status": "ok",
+    "novos": 23
+   },
+   "ibcbr": {
+    "status": "ok",
+    "novos": 23
+   },
+   "salario_min": {
+    "status": "ok",
+    "novos": 25
+   },
+   "focus_ipca": {
+    "status": "ok",
+    "novos": 60
+   },
+   "focus_selic": {
+    "status": "ok",
+    "novos": 60
+   },
+   "focus_pib": {
+    "status": "ok",
+    "novos": 60
+   },
+   "desocup": {
+    "status": "ok",
+    "novos": 24
+   },
+   "ocup": {
+    "status": "ok",
+    "novos": 24
+   },
+   "informal": {
+    "status": "ok",
+    "novos": 24
+   },
+   "renda_real": {
+    "status": "ok",
+    "novos": 24
+   },
+   "pib_tri": {
+    "status": "ok",
+    "novos": 24
+   },
+   "gini": {
+    "status": "ok",
+    "novos": 14
+   },
+   "inseg_grave": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "Identificar a tabela SIDRA do suplemento de segurança alimentar"
+   },
+   "pobreza": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "SIS é publicada em planilhas; confirmar se há tabela SIDRA equivalente"
+   },
+   "ext_pobreza": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "Idem pobreza"
+   },
+   "cesta_sp": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "Definir a URL da tabela mensal do DIEESE e conferir o layout"
+   },
+   "caged": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "Definir a URL da planilha oficial mensal e os rótulos de linha/coluna"
+   },
+   "dpf": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "Definir o id do dataset CKAN e as colunas de data e valor"
+   },
+   "cds": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "Desativado por decisão de arquitetura; ver README"
+   },
+   "sm_cestas": {
+    "status": "inativo",
+    "novos": 0,
+    "erro": "aguardando cesta_sp"
+   }
+  }
+ }
+}
