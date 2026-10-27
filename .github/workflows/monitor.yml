@@ -1,0 +1,124 @@
+name: monitor-semanal
+
+on:
+  schedule:
+    - cron: "0 11 * * 1"   # segunda-feira 08:00 em Brasília (UTC-3, sem horário de verão)
+  workflow_dispatch:
+
+permissions:
+  contents: write    # commit do dados.json e Releases de backup
+  issues: write      # abrir/fechar Issues de falha
+  pages: write       # publicar o dashboard
+  id-token: write    # exigido pelo deploy-pages
+  actions: write     # keepalive (reativa o próprio workflow)
+
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      TZ: America/Sao_Paulo
+    steps:
+      # Versões fixadas. Recomendado: trocar as tags pelo SHA do commit (ver README, "Fixação de versões").
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.7"
+          cache: pip
+
+      - name: Dependências
+        run: pip install -r requirements.txt
+
+      - name: Testes (bloqueiam a gravação se falharem)
+        run: python -m pytest -q
+
+      - name: Coleta, validação e gravação
+        run: python coletor.py
+
+      - name: Relatório com IA (não bloqueia)
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+        run: python analista.py
+
+      - name: Dashboard
+        run: python dashboard.py
+
+      - name: Commit dos dados
+        run: |
+          git config user.name "monitor-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data relatorios
+          git commit -m "coleta $(date +%F)" || echo "nada a commitar"
+          for i in 1 2 3; do git push && break || (git pull --rebase && sleep 5); done
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: Rótulos das Issues (idempotente)
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create monitor-coleta --color D93F0B --force
+          gh label create monitor-quarentena --color FBCA04 --force
+          gh label create monitor-integridade --color B60205 --force
+          gh label create critico --color B60205 --force
+
+      - name: Notificações (e-mail e Issues)
+        if: always()
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_DESTINO: ${{ secrets.EMAIL_DESTINO }}
+          PAGES_URL: ${{ steps.deploy.outputs.page_url }}
+        run: python notificacao.py
+
+      - name: Keepalive (reativa o agendamento)
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/monitor.yml/enable"
+
+      - name: Backup mensal em Release
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="backup-$(date +%Y-%m)"
+          if gh release view "$TAG" >/dev/null 2>&1; then echo "backup do mês já existe"; exit 0; fi
+          gh release create "$TAG" data/dados.json data/saude.json \
+            --title "Backup $(date +%m/%Y)" --notes "Backup automático do histórico (inclui linha de base e selos)."
+
+      - name: Issue em caso de falha do workflow
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create --title "[workflow] Falha na execução $(date +%F)" \
+            --label monitor-coleta \
+            --body "A execução falhou antes de concluir. Log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \
+          || gh issue create --title "[workflow] Falha na execução $(date +%F)" \
+            --body "A execução falhou. Log: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
