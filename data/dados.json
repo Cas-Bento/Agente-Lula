@@ -149,6 +149,47 @@
     "LINHA DE BASE travada caged: 48244696.0 (ref 2026-08-01)",
     "LINHA DE BASE travada arrecadacao: 3074.30784452336 (ref 2026-07-01)"
    ]
+  },
+  {
+   "data": "2026-10-28",
+   "inicio": "2026-10-28T11:18:16+00:00",
+   "novos": 0,
+   "log": [
+    "INÍCIO coleta 2026-10-28T11:18:16+00:00",
+    "OK dolar: 0 novo(s); última ref 2026-10-27",
+    "OK euro: 0 novo(s); última ref 2026-10-27",
+    "OK selic: 0 novo(s); última ref 2026-10-28",
+    "OK ipca_m: 0 novo(s); última ref 2026-09-01",
+    "OK ipca_12: 0 novo(s); última ref 2026-09-01",
+    "OK dbgg: 0 novo(s); última ref 2026-08-01",
+    "OK dlsp: 0 novo(s); última ref 2026-08-01",
+    "OK primario: 0 novo(s); última ref 2026-08-01",
+    "OK ibcbr: 0 novo(s); última ref 2026-08-01",
+    "OK salario_min: 0 novo(s); última ref 2026-10-01",
+    "OK focus_ipca: 0 novo(s); última ref 2026-10-23",
+    "OK focus_selic: 0 novo(s); última ref 2026-10-23",
+    "OK focus_pib: 0 novo(s); última ref 2026-10-23",
+    "OK desocup: 0 novo(s); última ref 2026-08-01",
+    "OK ocup: 0 novo(s); última ref 2026-08-01",
+    "OK informal: 0 novo(s); última ref 2026-06-01",
+    "OK renda_real: 0 novo(s); última ref 2026-08-01",
+    "OK pib_tri: 0 novo(s); última ref 2026-06-01",
+    "OK gini: 0 novo(s); última ref 2025-12-01",
+    "OK inseg_grave: 0 novo(s); última ref 2024-12-01",
+    "OK pobreza: 0 novo(s); última ref 2024-12-01",
+    "OK ext_pobreza: 0 novo(s); última ref 2024-12-01",
+    "OK cesta_sp: 0 novo(s); última ref 2026-09-01",
+    "OK caged: 0 novo(s); última ref 2026-08-01",
+    "OK dpf: 0 novo(s); última ref 2026-08-01",
+    "OK arrecadacao: 0 novo(s); última ref 2026-07-01",
+    "OK desmat_deter: 0 novo(s); última ref 2026-09-01",
+    "OK ibovespa: 0 novo(s); última ref 2026-10-27",
+    "OK gasolina: 0 novo(s); última ref 2026-10-24",
+    "OK etanol: 0 novo(s); última ref 2026-10-24",
+    "OK diesel: 0 novo(s); última ref 2026-10-24",
+    "OK sm_cestas: 0 novo(s) calculado(s)",
+    "SEM DADOS NOVOS nesta semana"
+   ]
   }
  ],
  "indicadores": {

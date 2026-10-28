@@ -12,28 +12,26 @@
    "status": "verde"
   },
   "euro": {
-   "falhas_consecutivas": 1,
+   "falhas_consecutivas": 0,
    "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
-   "ultimo_erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
+   "ultimo_erro": null,
    "ultima_ref": "2026-10-27",
    "atrasado": false,
-   "status": "amarelo",
-   "sugestao": "O formato da resposta mudou. Revisar o parser do coletor; enquanto isso, usar manual.csv."
+   "status": "verde"
   },
   "selic": {
-   "falhas_consecutivas": 1,
+   "falhas_consecutivas": 0,
    "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
-   "ultimo_erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json",
-   "sugestao": "Instabilidade ou bloqueio na fonte. Se persistir, testar a URL manualmente e verificar mudança de endpoint.",
+   "ultimo_erro": null,
    "ultima_ref": "2026-10-28",
    "atrasado": false,
-   "status": "amarelo"
+   "status": "verde"
   },
   "ipca_m": {
    "falhas_consecutivas": 0,
@@ -80,16 +78,15 @@
    "status": "verde"
   },
   "primario": {
-   "falhas_consecutivas": 1,
+   "falhas_consecutivas": 0,
    "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
-   "ultimo_erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
+   "ultimo_erro": null,
    "ultima_ref": "2026-08-01",
    "atrasado": false,
-   "status": "amarelo",
-   "sugestao": "O formato da resposta mudou. Revisar o parser do coletor; enquanto isso, usar manual.csv."
+   "status": "verde"
   },
   "ibcbr": {
    "falhas_consecutivas": 0,
@@ -219,7 +216,6 @@
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
    "ultima_ref": "2024-12-01",
    "atrasado": false,
    "status": "verde"
@@ -231,7 +227,6 @@
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
    "ultima_ref": "2024-12-01",
    "atrasado": false,
    "status": "verde"
@@ -243,7 +238,6 @@
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
    "ultima_ref": "2024-12-01",
    "atrasado": false,
    "status": "verde"
@@ -255,7 +249,6 @@
    "fonte": "DIEESE/Conab (Pesquisa Nacional da Cesta Básica)",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
    "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
@@ -267,7 +260,6 @@
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
    "ultima_ref": "2026-08-01",
    "atrasado": false,
    "status": "verde"
@@ -279,22 +271,9 @@
    "fonte": "Tesouro Nacional (Tesouro Transparente/CKAN)",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
    "ultima_ref": "2026-08-01",
    "atrasado": false,
    "status": "verde"
-  },
-  "cds": {
-   "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
-   "fonte": "Sem fonte gratuita e estável identificada",
-   "ativo": false,
-   "ultimo_erro": "Desativado por decisão de arquitetura; ver README",
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
-   "ultima_ref": null,
-   "atrasado": false,
-   "status": "cinza"
   },
   "sm_cestas": {
    "falhas_consecutivas": 0,
@@ -303,7 +282,6 @@
    "fonte": "Calculado: BCB SGS 1619 / DIEESE cesta SP",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
    "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
@@ -315,10 +293,9 @@
    "fonte": "Tesouro Nacional (Resultado do Tesouro Nacional)",
    "ativo": true,
    "ultimo_erro": null,
-   "sugestao": "O formato da resposta mudou. Revisar o parser do coletor; enquanto isso, usar manual.csv.",
    "ultima_ref": "2026-07-01",
-   "atrasado": true,
-   "status": "amarelo"
+   "atrasado": false,
+   "status": "verde"
   },
   "desmat_deter": {
    "falhas_consecutivas": 0,
@@ -377,20 +354,19 @@
   }
  },
  "fontes": {
-  "Banco Central do Brasil (SGS)": "amarelo",
+  "Banco Central do Brasil (SGS)": "verde",
   "Banco Central do Brasil (Focus, API Olinda)": "verde",
   "IBGE (SIDRA)": "verde",
   "DIEESE/Conab (Pesquisa Nacional da Cesta Básica)": "verde",
   "Tesouro Nacional (Tesouro Transparente/CKAN)": "verde",
-  "Sem fonte gratuita e estável identificada": "cinza",
   "Calculado: BCB SGS 1619 / DIEESE cesta SP": "verde",
-  "Tesouro Nacional (Resultado do Tesouro Nacional)": "amarelo",
+  "Tesouro Nacional (Resultado do Tesouro Nacional)": "verde",
   "INPE (DETER, TerraBrasilis)": "verde",
   "B3 (Estatísticas de Índices)": "verde",
   "ANP (Levantamento de Preços de Combustíveis)": "verde"
  },
  "integridade": [],
- "status_geral": "amarelo",
+ "status_geral": "verde",
  "atualizado": "2026-10-28",
  "ultima_execucao": {
   "data": "2026-10-28",
@@ -400,16 +376,12 @@
     "novos": 0
    },
    "euro": {
-    "status": "erro",
-    "novos": 0,
-    "erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
-    "tipo": "layout"
+    "status": "ok",
+    "novos": 0
    },
    "selic": {
-    "status": "erro",
-    "novos": 0,
-    "erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json",
-    "tipo": "rede"
+    "status": "ok",
+    "novos": 0
    },
    "ipca_m": {
     "status": "ok",
@@ -428,10 +400,8 @@
     "novos": 0
    },
    "primario": {
-    "status": "erro",
-    "novos": 0,
-    "erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
-    "tipo": "layout"
+    "status": "ok",
+    "novos": 0
    },
    "ibcbr": {
     "status": "ok",
@@ -479,15 +449,15 @@
    },
    "inseg_grave": {
     "status": "ok",
-    "novos": 6
+    "novos": 0
    },
    "pobreza": {
     "status": "ok",
-    "novos": 13
+    "novos": 0
    },
    "ext_pobreza": {
     "status": "ok",
-    "novos": 13
+    "novos": 0
    },
    "cesta_sp": {
     "status": "ok",
@@ -495,7 +465,7 @@
    },
    "caged": {
     "status": "ok",
-    "novos": 23
+    "novos": 0
    },
    "dpf": {
     "status": "ok",
@@ -503,7 +473,7 @@
    },
    "arrecadacao": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "desmat_deter": {
     "status": "ok",
