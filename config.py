@@ -24,7 +24,8 @@ LIMITE_DADOS_BYTES = 4_000_000  # acima disso, logs e quarentena antigos vão pa
 FALHAS_ALERTA_CRITICO = 2
 DOMINIOS_OFICIAIS = (
     "bcb.gov.br", "ibge.gov.br", "tesourotransparente.gov.br", "tesouro.gov.br",
-    "gov.br", "dieese.org.br",
+    "gov.br", "dieese.org.br", "inpe.br",
+    "b3.com.br",  # fonte primária do Ibovespa (mercado); única exceção não governamental
 )
 
 SGS = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.{codigo}/dados"
@@ -33,7 +34,7 @@ OLINDA_FOCUS = ("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1
                 "ExpectativasMercadoAnuais")
 
 EIXOS = ["Custo de vida", "Câmbio", "Juros", "Fiscal", "Trabalho", "Social",
-         "Atividade", "Expectativas", "Externo"]
+         "Atividade", "Expectativas", "Externo", "Mercado", "Meio ambiente"]
 
 
 def _sgs(id_, nome, codigo, un, eixo, melhor, per, atraso, faixa, var, cal, validar=None):
@@ -133,12 +134,11 @@ INDICADORES = [
 
     # ---------------- Fontes sem API REST formal -------------------------------------------
     dict(id="cesta_sp", nome="Cesta básica São Paulo", un="R$", eixo="Custo de vida",
-         melhor="baixo", fonte="DIEESE (Pesquisa Nacional da Cesta Básica)", coletor="dieese",
-         params={"url": None, "cidade": "São Paulo"},  # VALIDAR: URL estável da tabela mensal
+         melhor="baixo", fonte="DIEESE/Conab (Pesquisa Nacional da Cesta Básica)", coletor="dieese",
+         params={"cidade": "São Paulo"},  # boletim PDF mensal; endereço montado em coletores/dieese.py
          url="https://www.dieese.org.br/cesta/", periodicidade="mensal", atraso_max_dias=75,
          faixa=(100, 5000), var_max=("rel", 0.20),
-         calendario="Mensal, primeira quinzena do mês seguinte", ativo=False,
-         validar="Definir a URL da tabela mensal do DIEESE e conferir o layout"),
+         calendario="Mensal, primeira quinzena do mês seguinte", ativo=True, validar=None),
     dict(id="sm_cestas", nome="Salário mínimo / cesta SP", un="cestas", eixo="Custo de vida",
          melhor="alto", fonte="Calculado: BCB SGS 1619 / DIEESE cesta SP", coletor="derivado",
          params={"formula": "salario_min(ref) / cesta_sp(ref)"},
@@ -152,18 +152,57 @@ INDICADORES = [
          periodicidade="mensal", atraso_max_dias=100, faixa=(-3_000_000, 3_000_000),
          var_max=("abs", 1_500_000), calendario="Mensal, ~30 dias após o mês", ativo=False,
          validar="Definir a URL da planilha oficial mensal e os rótulos de linha/coluna"),
-    dict(id="dpf", nome="Dívida Pública Federal (estoque)", un="R$ trilhões", eixo="Fiscal",
+    dict(id="dpf", nome="Dívida Pública Federal (estoque em mercado)", un="R$ trilhões", eixo="Fiscal",
          melhor="baixo", fonte="Tesouro Nacional (Tesouro Transparente/CKAN)", coletor="tesouro",
-         params={"dataset": None, "col_data": None, "col_valor": None, "divisor": 1e12},  # VALIDAR
-         url="https://www.tesourotransparente.gov.br/ckan/dataset",
+         # dataset "Estoque da Dívida Pública Federal"; soma da classe Mercado (DPF em poder do público)
+         params={"dataset": "0998f610-bc25-4ce3-b32c-a873447500c2", "classe": "mercado", "divisor": 1e12},
+         url="https://www.tesourotransparente.gov.br/ckan/dataset/0998f610-bc25-4ce3-b32c-a873447500c2",
          periodicidade="mensal", atraso_max_dias=95, faixa=(1, 50), var_max=("rel", 0.15),
-         calendario="Mensal, Relatório Mensal da Dívida (~25 dias após o mês)", ativo=False,
-         validar="Definir o id do dataset CKAN e as colunas de data e valor"),
+         calendario="Mensal, último decêndio do mês seguinte", ativo=True, validar=None),
     dict(id="cds", nome="Risco-país CDS 5 anos", un="pontos", eixo="Externo", melhor="baixo",
          fonte="Sem fonte gratuita e estável identificada", coletor="cds", params={},
          url="", periodicidade="diaria", atraso_max_dias=None, faixa=(0, 2000),
          var_max=("rel", 0.5), calendario="Diária (mercado)", ativo=False,
          validar="Desativado por decisão de arquitetura; ver README"),
+
+    # ---------------- Novos indicadores (28/10/2026) ----------------------------------------
+    dict(id="arrecadacao", nome="Receita total do Governo Central (12 meses)", un="R$ bilhões",
+         eixo="Fiscal", melhor="neutro", fonte="Tesouro Nacional (Resultado do Tesouro Nacional)",
+         coletor="tesouro_rtn",
+         params={"dataset": "ab56485b-9c40-4efb-8563-9ce3e1973c4b", "aba": "1.1",
+                 "rotulo": "Receita Total", "divisor": 1000},
+         url="https://www.tesourotransparente.gov.br/ckan/dataset/resultado-do-tesouro-nacional",
+         periodicidade="mensal", atraso_max_dias=100, faixa=(500, 10000), var_max=("rel", 0.10),
+         calendario="Mensal, RTN (~30 dias após o mês)", ativo=True,
+         validar="Layout do XLSX não conferido no arquivo real: confirmar na 1ª execução"),
+    dict(id="desmat_deter", nome="Avisos de desmatamento na Amazônia (DETER)", un="km²",
+         eixo="Meio ambiente", melhor="baixo", fonte="INPE (DETER, TerraBrasilis)", coletor="inpe_deter",
+         params={}, url="https://terrabrasilis.dpi.inpe.br/app/dashboard/alerts/legal/amazon/aggregated/",
+         periodicidade="mensal", atraso_max_dias=80, faixa=(0, 20000), var_max=("abs", 5000),
+         calendario="Mensal; gravado 15 dias após o fim do mês (avisos atrasados)", ativo=True, validar=None),
+    dict(id="ibovespa", nome="Ibovespa (fechamento)", un="pontos", eixo="Mercado", melhor="alto",
+         fonte="B3 (Estatísticas de Índices)", coletor="b3", params={"indice": "IBOV"},
+         url="https://sistemaswebb3-listados.b3.com.br/indexStatisticsPage/day/IBOV?language=pt-br",
+         periodicidade="diaria", atraso_max_dias=7, faixa=(30_000, 1_000_000), var_max=("rel", 0.25),
+         calendario="Diária, dias úteis", ativo=True, validar=None),
+    dict(id="gasolina", nome="Gasolina comum (preço médio)", un="R$/l", eixo="Custo de vida",
+         melhor="baixo", fonte="ANP (Levantamento de Preços de Combustíveis)", coletor="anp",
+         params={"produto": "GASOLINA COMUM"},
+         url="https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/serie-historica-do-levantamento-de-precos",
+         periodicidade="semanal", atraso_max_dias=21, faixa=(2, 20), var_max=("rel", 0.20),
+         calendario="Semanal (semana de domingo a sábado)", ativo=True, validar=None),
+    dict(id="etanol", nome="Etanol hidratado (preço médio)", un="R$/l", eixo="Custo de vida",
+         melhor="baixo", fonte="ANP (Levantamento de Preços de Combustíveis)", coletor="anp",
+         params={"produto": "ETANOL HIDRATADO"},
+         url="https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/serie-historica-do-levantamento-de-precos",
+         periodicidade="semanal", atraso_max_dias=21, faixa=(1, 15), var_max=("rel", 0.20),
+         calendario="Semanal (semana de domingo a sábado)", ativo=True, validar=None),
+    dict(id="diesel", nome="Óleo diesel S10 (preço médio)", un="R$/l", eixo="Custo de vida",
+         melhor="baixo", fonte="ANP (Levantamento de Preços de Combustíveis)", coletor="anp",
+         params={"produto": "OLEO DIESEL S10"},
+         url="https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/serie-historica-do-levantamento-de-precos",
+         periodicidade="semanal", atraso_max_dias=21, faixa=(2, 20), var_max=("rel", 0.20),
+         calendario="Semanal (semana de domingo a sábado)", ativo=True, validar=None),
 ]
 
 CATALOGO = {i["id"]: i for i in INDICADORES}

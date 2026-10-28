@@ -92,6 +92,12 @@ Conferidos nas APIs oficiais em 27/10/2026:
 | primario | SGS | 5793 | Valores de 0,62 a 1,19 em jun-ago/2026, compatíveis com resultado primário 12m em % do PIB. **Convenção NFSP: positivo = déficit** |
 | dbgg | SGS | 13762 | 82,87% PIB em ago/2026 |
 | salario_min | SGS | 1619 | R$ 1.621 em out/2026. A série traz meses futuros; o coletor descarta referências posteriores à data da coleta |
+| cesta_sp | DIEESE/Conab | boletim PDF `analisecestabasica/AAAA/AAAAMMcestabasica.pdf` | Endereço e layout da Tabela 1 conferidos no boletim de jul/2026 (São Paulo R$ 915,01). Ativado em 27/10/2026 |
+| dpf | Tesouro Transparente | dataset CKAN 0998f610-bc25-4ce3-b32c-a873447500c2 | Colunas conforme documento de metadados do Tesouro. Indicador = soma da classe Mercado (DPF em poder do público), em R$ trilhões. Ativado em 27/10/2026 |
+| gasolina, etanol, diesel | ANP | `semanal-brasil-desde-2013.xlsx`, produtos GASOLINA COMUM, ETANOL HIDRATADO, OLEO DIESEL S10 | Layout conferido em 28/10/2026: semana 18 a 24/10/2026 com R$ 6,49 / 4,11 / 7,32 por litro |
+| desmat_deter | INPE TerraBrasilis | WFS `deter-amz:deter_amz`, classes DESMATAMENTO_CR + DESMATAMENTO_VEG + MINERACAO, soma de `areamunkm` por mês de `view_date` | Conferido em 28/10/2026: set/2026 = 350,19 km²; histórico desde ago/2016 |
+| ibovespa | B3 | `indexStatisticsProxy/IndexCall/GetPortfolioDay` (IBOV, ano) | Conferido em 28/10/2026: 205.082,56 em 23/10 e 176.608,23 em 26/10/2026 (queda de 13,9% no dia da linha de base; `var_max` ajustado para 25% para não mandar para quarentena) |
+| arrecadacao | Tesouro (RTN) | dataset CKAN `resultado-do-tesouro-nacional`, aba 1.1, linha "Receita Total", soma de 12 meses | **VALIDAR**: o XLSX não pôde ser aberto daqui; o parser procura rótulo e meses. Se falhar, a Issue mostra o motivo |
 
 Pendentes:
 
@@ -103,9 +109,7 @@ Pendentes:
 | focus_* | nomes "IPCA", "Selic", "PIB Total" | `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$top=5&$format=json&$filter=Indicador eq 'PIB Total'` deve retornar linhas |
 | inseg_grave | **desativado** | Localizar no SIDRA a tabela do suplemento de segurança alimentar da PNAD Contínua; testar `https://apisidra.ibge.gov.br/values/t/<tabela>/n1/all/v/all/p/last 1`; preencher `path` em config.py |
 | pobreza, ext_pobreza | **desativados** | A SIS é publicada em planilhas. Verificar se há tabela SIDRA com % da população abaixo das linhas de pobreza; se não houver, criar coletor de planilha no padrão do `mte_caged.py` |
-| cesta_sp | **desativado** | Definir em `params.url` a página/tabela mensal do DIEESE; o parser exige tabela com coluna "Valor", linha "São Paulo" e mês por extenso. Testar com `pytest tests/test_parsers.py::test_dieese_html` adaptado ao HTML real |
 | caged | **desativado** | Definir a URL da planilha mensal oficial do MTE e os rótulos de linha/coluna |
-| dpf | **desativado** | Encontrar o dataset de estoque da DPF no CKAN do Tesouro Transparente; preencher `dataset`, `col_data`, `col_valor`, `divisor` |
 | cds | **desativado por decisão** | Ver seção CDS |
 
 Para ativar um coletor: preencher os parâmetros, mudar `ativo` para `True` em `config.py`, rodar `pytest` e `python coletor.py --hoje <data>` localmente.
@@ -113,6 +117,12 @@ Para ativar um coletor: preencher os parâmetros, mudar `ativo` para `True` em `
 ### CDS (risco-país)
 
 Não identifiquei fonte de mercado gratuita, estável e com termos de uso que permitam coleta automatizada. Raspar sites de cotação violaria a regra de não usar agregadores e quebraria com frequência. O indicador fica no catálogo, desativado e visível no dashboard. Alternativa futura: API paga licenciada, implementada em `coletores/cds.py`.
+
+### Escolhas de fonte (28/10/2026)
+
+- **Impostômetro não foi usado.** É uma estimativa da Associação Comercial de São Paulo, não um dado oficial. O equivalente oficial é a Receita Total do Governo Central, do Resultado do Tesouro Nacional, acumulada em 12 meses (soma dos valores mensais publicados; evita a sazonalidade mensal). Cobre só a esfera federal.
+- **Desmatamento usa DETER, não PRODES.** DETER é o sistema de alerta mensal do INPE; PRODES é a taxa oficial anual (ago a jul), divulgada uma vez por ano. DETER serve para acompanhar tendência; não deve ser citado como taxa oficial. O mês só é gravado 15 dias após terminar, porque avisos atrasados ainda entram nesse prazo.
+- **Ibovespa vem da B3**, que calcula o índice. É a única fonte não governamental do sistema (exceção prevista para dados de mercado). O endpoint é o da página pública da B3, sem documentação formal: pode mudar sem aviso.
 
 ## Periodicidade e calendário típico
 
@@ -135,6 +145,10 @@ O calendário é indicativo. A data efetiva é a do calendário oficial de cada 
 | cesta_sp, sm_cestas | mensal | 1ª quinzena do mês seguinte | 75 |
 | caged | mensal | ~30 dias após o mês | 100 |
 | dpf | mensal | ~25 dias após o mês | 95 |
+| gasolina, etanol, diesel | semanal | segunda/terça da semana seguinte | 21 |
+| ibovespa | diária | dias úteis | 7 |
+| desmat_deter | mensal | gravado 15 dias após o mês | 80 |
+| arrecadacao | mensal | RTN, ~30 dias após o mês | 100 |
 
 ## Regras de integridade implementadas
 

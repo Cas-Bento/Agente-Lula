@@ -81,10 +81,10 @@ def test_manual_so_quando_coletor_falha(ambiente):
         "cesta_sp,2026-09-01,\"850,12\",https://www.dieese.org.br/x\n"
         "ipca_m,2026-09-01,0.5,https://noticias.exemplo.com/x\n", encoding="utf-8")
     d, _ = rodar({"dolar": ColetaErro("fora do ar"), "selic": [ob("2026-10-26", 14.25)],
-                  "ipca_m": ColetaErro("x")}, "2026-10-27")
+                  "ipca_m": ColetaErro("x"), "cesta_sp": ColetaErro("DIEESE fora do ar")}, "2026-10-27")
     assert d["indicadores"]["dolar"]["serie"][0]["origem"] == "manual"
     assert d["indicadores"]["selic"]["serie"][0]["valor"] == 14.25
-    assert d["indicadores"]["cesta_sp"]["serie"][0]["valor"] == 850.12  # coletor inativo
+    assert d["indicadores"]["cesta_sp"]["serie"][0]["valor"] == 850.12  # coletor falhou
     assert not d["indicadores"]["ipca_m"]["serie"]  # URL não oficial -> quarentena
     assert any(q["id"] == "ipca_m" for q in d["quarentena"])
 
@@ -92,7 +92,7 @@ def test_manual_so_quando_coletor_falha(ambiente):
 def test_derivado_sm_cestas(ambiente):
     (ambiente / "manual.csv").write_text(
         "id,ref,valor,url\ncesta_sp,2026-09-01,810.5,https://www.dieese.org.br/x\n", encoding="utf-8")
-    d, _ = rodar({"salario_min": [ob("2026-09-01", 1621.0)]}, "2026-10-27")
+    d, _ = rodar({"salario_min": [ob("2026-09-01", 1621.0)], "cesta_sp": ColetaErro("x")}, "2026-10-27")
     p = d["indicadores"]["sm_cestas"]["serie"][0]
     assert p["valor"] == 1621.0 / 810.5 and p["ref"] == "2026-09-01"
 

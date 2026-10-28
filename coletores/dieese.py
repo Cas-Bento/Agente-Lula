@@ -1,69 +1,90 @@
-"""DIEESE, Pesquisa Nacional da Cesta Básica (página HTML com tabela por capital).
+"""DIEESE, Pesquisa Nacional da Cesta Básica (Conab/DIEESE).
 
-Parser defensivo: exige (1) uma tabela com cabeçalho contendo "Valor", (2) uma linha cujo
-primeiro campo é a cidade configurada e (3) o mês de referência por extenso na página.
-Se qualquer item faltar, falha com LayoutErro e nada é gravado.
-VALIDAR: a URL em config.py (params.url) e os rótulos do cabeçalho.
+Fonte: boletim mensal em PDF, com endereço previsível
+    https://www.dieese.org.br/analisecestabasica/AAAA/AAAAMMcestabasica.pdf
+A Tabela 1 do boletim traz, por capital: "Valor da cesta", variação mensal, % do salário
+mínimo líquido e tempo de trabalho. Ex.: "São Paulo 915,01 -5,23 61,02 124h11m ...".
+
+Regras do parser (defensivo):
+1. o mês de referência vem do endereço e precisa constar por extenso no texto do PDF;
+2. a cidade precisa aparecer seguida de um valor em reais e de uma variação percentual
+   (padrão da Tabela 1); menções no corpo do texto, como "(R$ 915,01)", não casam;
+3. se algo faltar, LayoutErro: nada é gravado e o valor anterior é mantido.
+Meses ainda não publicados (HTTP 404) são ignorados.
 """
-from html.parser import HTMLParser
+import io
+import re
+import unicodedata
+from datetime import date
 
-from coletores.util import Desativado, LayoutErro, http_get, mes_por_extenso, num
+from coletores.util import ColetaErro, LayoutErro, MESES, http_get, num
 
-
-class _Tabelas(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.tabelas, self._t, self._l, self._c, self.texto = [], None, None, None, []
-
-    def handle_starttag(self, tag, attrs):
-        if tag == "table":
-            self._t = []
-        elif tag == "tr" and self._t is not None:
-            self._l = []
-        elif tag in ("td", "th") and self._l is not None:
-            self._c = []
-
-    def handle_endtag(self, tag):
-        if tag in ("td", "th") and self._c is not None:
-            self._l.append(" ".join("".join(self._c).split()))
-            self._c = None
-        elif tag == "tr" and self._l is not None:
-            self._t.append(self._l)
-            self._l = None
-        elif tag == "table" and self._t is not None:
-            self.tabelas.append(self._t)
-            self._t = None
-
-    def handle_data(self, d):
-        self.texto.append(d)
-        if self._c is not None:
-            self._c.append(d)
+URL = "https://www.dieese.org.br/analisecestabasica/{ano}/{ano}{mes:02d}cestabasica.pdf"
+MESES_PRIMEIRA = 24   # histórico para os gráficos na primeira coleta
+MESES_ROTINA = 4      # janela semanal: cobre atrasos de publicação
 
 
-def parse(html, url, cidade):
-    p = _Tabelas()
-    p.feed(html)
-    ref = mes_por_extenso(" ".join(p.texto))
-    if not ref:
-        raise LayoutErro("DIEESE: mês de referência não encontrado na página")
-    for t in p.tabelas:
-        if not t:
+def _sem_acento(s):
+    return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn").lower()
+
+
+def texto_pdf(conteudo):
+    from pypdf import PdfReader  # import tardio: só exige pypdf quando o coletor roda
+    leitor = PdfReader(io.BytesIO(conteudo))
+    # A Tabela 1 fica nas primeiras páginas; limitar evita ler anexos longos.
+    return "\n".join((p.extract_text() or "") for p in leitor.pages[:6])
+
+
+def parse_texto(texto, ref, url, cidade):
+    ano, mes = int(ref[:4]), int(ref[5:7])
+    nome_mes = _sem_acento([m for m, i in MESES.items() if i == mes][0])
+    plano = _sem_acento(" ".join(texto.split()))
+    if not re.search(rf"{nome_mes}\s*(de|/)\s*{ano}", plano):
+        raise LayoutErro(f"DIEESE: mês {nome_mes}/{ano} não consta no boletim {url}")
+    padrao = rf"{re.escape(_sem_acento(cidade))}\s+(\d{{2,4}}(?:\.\d{{3}})*,\d{{2}})\s+[-+]?\d+,\d{{1,2}}"
+    m = re.search(padrao, plano)
+    if not m:
+        raise LayoutErro(f"DIEESE: linha '{cidade}' da Tabela 1 não encontrada em {url}")
+    v = num(m.group(1))
+    if v is None:
+        raise LayoutErro(f"DIEESE: valor ilegível para {cidade}: {m.group(1)!r}")
+    return {"ref": ref, "valor": v, "url": url}
+
+
+def meses_alvo(hoje, n):
+    """Meses de referência a tentar, do mais antigo ao mais recente. O boletim do mês M sai
+    no início de M+1, então o mês corrente nunca tem boletim."""
+    a, m = hoje.year, hoje.month
+    saida = []
+    for _ in range(n):
+        m -= 1
+        if m == 0:
+            a, m = a - 1, 12
+        saida.append(date(a, m, 1))
+    return sorted(saida)
+
+
+def coletar(ind, primeira, hoje, _get=http_get, _texto=texto_pdf):
+    cidade = ind["params"]["cidade"]
+    obs, erros, ultimo_layout = [], [], None
+    for d in meses_alvo(hoje, MESES_PRIMEIRA if primeira else MESES_ROTINA):
+        url = URL.format(ano=d.year, mes=d.month)
+        try:
+            conteudo = _get(url)
+        except ColetaErro as e:
+            if "HTTP 404" in str(e):
+                continue  # boletim ainda não publicado (ou mês sem pesquisa)
+            erros.append(str(e))
             continue
-        cab = [c.lower() for c in t[0]]
-        col = next((i for i, c in enumerate(cab) if "valor" in c), None)
-        if col is None:
-            continue
-        for linha in t[1:]:
-            if linha and linha[0].strip().lower() == cidade.lower() and len(linha) > col:
-                v = num(linha[col])
-                if v is None:
-                    raise LayoutErro(f"DIEESE: valor ilegível para {cidade}: {linha[col]!r}")
-                return [{"ref": ref, "valor": v, "url": url}]
-    raise LayoutErro(f"DIEESE: linha '{cidade}' ou coluna 'Valor' não encontrada")
-
-
-def coletar(ind, primeira, hoje):
-    url = ind["params"].get("url")
-    if not url:
-        raise Desativado("DIEESE: URL não configurada (VALIDAR)")
-    return parse(http_get(url).decode("utf-8", errors="replace"), url, ind["params"]["cidade"])
+        try:
+            obs.append(parse_texto(_texto(conteudo), d.isoformat(), url, cidade))
+            ultimo_layout = None
+        except LayoutErro as e:
+            ultimo_layout = e  # boletim antigo com layout diferente: o mês é pulado, nada é gravado
+        except Exception as e:  # PDF corrompido ou ilegível
+            ultimo_layout = LayoutErro(f"DIEESE: PDF ilegível em {url}: {type(e).__name__}")
+    if ultimo_layout is not None:
+        raise ultimo_layout  # o boletim mais recente não foi lido: provável mudança de layout
+    if not obs:
+        raise ColetaErro("DIEESE: nenhum boletim obtido. " + ("; ".join(erros) or "todos os meses com HTTP 404"))
+    return obs

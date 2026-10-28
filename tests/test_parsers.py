@@ -69,22 +69,72 @@ def test_focus():
         bcb_focus.parse({"value": [{"Data": "2026-10-23", "DataReferencia": "2028", "Mediana": 1}]}, "u", 2027)
 
 
-def test_dieese_html():
-    html = """<h2>Custo da cesta básica, setembro de 2026</h2>
-    <table><tr><th>Capital</th><th>Valor da cesta (R$)</th><th>Variação</th></tr>
-    <tr><td>Rio de Janeiro</td><td>800,10</td><td>1,0</td></tr>
-    <tr><td>São Paulo</td><td>850,12</td><td>0,5</td></tr></table>"""
-    assert dieese.parse(html, "https://www.dieese.org.br/x", "São Paulo") == [
-        {"ref": "2026-09-01", "valor": 850.12, "url": "https://www.dieese.org.br/x"}]
-    with pytest.raises(LayoutErro):
-        dieese.parse(html.replace("Valor", "Preço"), "u", "São Paulo")
-    with pytest.raises(LayoutErro):
-        dieese.parse(html.replace("setembro de 2026", ""), "u", "São Paulo")
+def test_dieese_texto():
+    texto = ("Pesquisa Nacional da Cesta Básica de Alimentos Brasil - Julho de 2026 "
+             "Em São Paulo (R$ 915,01) o custo caiu. Tabela 1 Capital Valor da cesta Variação mensal (%) "
+             "Rio de Janeiro 855,37 -1,10 57,00 115h00m\nSão Paulo 915,01 -5,23 61,02 124h11m 8,16 5,67")
+    url = "https://www.dieese.org.br/analisecestabasica/2026/202607cestabasica.pdf"
+    assert dieese.parse_texto(texto, "2026-07-01", url, "São Paulo") == {"ref": "2026-07-01", "valor": 915.01, "url": url}
+    with pytest.raises(LayoutErro):  # mês divergente do endereço
+        dieese.parse_texto(texto, "2026-08-01", url, "São Paulo")
+    with pytest.raises(LayoutErro):  # tabela sem a linha da cidade
+        dieese.parse_texto(texto.replace("São Paulo 915,01 -5,23", "SP"), "2026-07-01", url, "São Paulo")
+
+
+def test_dieese_pdf_real():
+    from pypdf import PdfWriter
+    from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
+    import io
+    w = PdfWriter()
+    pg = w.add_blank_page(width=600, height=400)
+    fonte = DictionaryObject({NameObject("/Type"): NameObject("/Font"), NameObject("/Subtype"): NameObject("/Type1"),
+                              NameObject("/BaseFont"): NameObject("/Helvetica"),
+                              NameObject("/Encoding"): NameObject("/WinAnsiEncoding")})
+    pg[NameObject("/Resources")] = DictionaryObject({NameObject("/Font"): DictionaryObject({NameObject("/F1"): w._add_object(fonte)})})
+    linhas = ["Brasil - Julho de 2026", "Capital Valor da cesta Variacao mensal (%)", "S\xe3o Paulo 915,01 -5,23 61,02 124h11m"]
+    ops = "BT /F1 12 Tf 50 350 Td " + " ".join(f"({l}) Tj 0 -20 Td" for l in linhas) + " ET"
+    st = DecodedStreamObject(); st.set_data(ops.encode("latin-1"))
+    pg[NameObject("/Contents")] = w._add_object(st)
+    buf = io.BytesIO(); w.write(buf)
+    txt = dieese.texto_pdf(buf.getvalue())
+    assert dieese.parse_texto(txt, "2026-07-01", "u", "São Paulo")["valor"] == 915.01
+
+
+def test_dieese_coletar_404_e_janela():
+    from datetime import date
+    from coletores.util import ColetaErro
+    chamadas = []
+
+    def get(url):
+        chamadas.append(url)
+        if "202609" in url:
+            raise ColetaErro(f"HTTP 404 em {url}")
+        return url.encode()
+
+    def texto(conteudo):
+        u = conteudo.decode()
+        mes = {"06": "Junho", "07": "Julho", "08": "Agosto"}[u[-17:-15]]
+        return f"{mes} de 2026 São Paulo 900,00 -1,00 60,00"
+    ind = {"params": {"cidade": "São Paulo"}}
+    obs = dieese.coletar(ind, False, date(2026, 10, 27), _get=get, _texto=texto)
+    assert [o["ref"] for o in obs] == ["2026-06-01", "2026-07-01", "2026-08-01"]
+    assert chamadas[0].endswith("2026/202606cestabasica.pdf") and len(chamadas) == 4
+    assert dieese.meses_alvo(date(2027, 1, 5), 2) == [date(2026, 11, 1), date(2026, 12, 1)]
 
 
 def test_tesouro_csv():
-    csv_txt = "Mes;Estoque\n01/08/2026;8.100.000.000.000,00\n01/09/2026;8.200.000.000.000,00\n"
-    obs = tesouro.parse_csv(csv_txt, "https://www.tesourotransparente.gov.br/x", "Mes", "Estoque", 1e12)
-    assert obs[-1] == {"ref": "2026-09-01", "valor": 8.2, "url": "https://www.tesourotransparente.gov.br/x"}
-    with pytest.raises(LayoutErro):
-        tesouro.parse_csv(csv_txt, "u", "Data", "Estoque", 1)
+    csv_txt = ("Titulo;Vencimento do Titulo;Valor do Estoque;Quantidade do Estoque;Mes do Estoque;Classe da Carteira;Tipo de Divida\n"
+               "LTN;01/01/2027;4.000.000.000.000,00;1;ago/2026;Mercado;Interna\n"
+               "NTN-B;15/05/2035;4.100.000.000.000,00;1;ago/2026;Mercado;Interna\n"
+               "LTN;01/01/2027;999.000.000.000,00;1;ago/2026;Bacen;Interna\n"
+               "LTN;01/01/2027;8.200.000.000.000,00;1;set/2026;Mercado;Interna\n")
+    url = "https://www.tesourotransparente.gov.br/x"
+    obs = tesouro.parse_csv(csv_txt, url)
+    assert obs == [{"ref": "2026-08-01", "valor": 8.1, "url": url}, {"ref": "2026-09-01", "valor": 8.2, "url": url}]
+    with pytest.raises(LayoutErro):  # sem coluna de classe
+        tesouro.parse_csv(csv_txt.replace("Classe da Carteira", "Carteira"), url)
+    assert tesouro.ref_mes("Set/26") == "2026-09-01" and tesouro.ref_mes("2026-09") == "2026-09-01"
+    assert tesouro.valor("8100000000000.5") == 8100000000000.5
+    meta = {"result": {"resources": [{"format": "PDF", "url": "m.pdf", "name": "Metadados"},
+                                     {"format": "CSV", "url": "https://x/EstoqueDPF.csv", "name": "Estoque da DPF"}]}}
+    assert tesouro.recurso_csv(meta) == "https://x/EstoqueDPF.csv"
