@@ -2,41 +2,41 @@
  "indicadores": {
   "dolar": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-10-26",
+   "ultima_ref": "2026-10-27",
    "atrasado": false,
    "status": "verde"
   },
   "euro": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-10-26",
+   "ultima_ref": "2026-10-27",
    "atrasado": false,
    "status": "verde"
   },
   "selic": {
-   "falhas_consecutivas": 1,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
-   "ultimo_erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026",
+   "ultimo_erro": null,
    "sugestao": "Instabilidade ou bloqueio na fonte. Se persistir, testar a URL manualmente e verificar mudança de endpoint.",
-   "ultima_ref": null,
+   "ultima_ref": "2026-10-28",
    "atrasado": false,
-   "status": "amarelo"
+   "status": "verde"
   },
   "ipca_m": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -47,7 +47,7 @@
   },
   "ipca_12": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -58,7 +58,7 @@
   },
   "dbgg": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -69,7 +69,7 @@
   },
   "dlsp": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -80,7 +80,7 @@
   },
   "primario": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -91,7 +91,7 @@
   },
   "ibcbr": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -102,7 +102,7 @@
   },
   "salario_min": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -113,7 +113,7 @@
   },
   "focus_ipca": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (Focus, API Olinda)",
    "ativo": true,
@@ -124,7 +124,7 @@
   },
   "focus_selic": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (Focus, API Olinda)",
    "ativo": true,
@@ -135,7 +135,7 @@
   },
   "focus_pib": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (Focus, API Olinda)",
    "ativo": true,
@@ -146,7 +146,7 @@
   },
   "desocup": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -157,7 +157,7 @@
   },
   "ocup": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -168,7 +168,7 @@
   },
   "informal": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -179,7 +179,7 @@
   },
   "renda_real": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -190,7 +190,7 @@
   },
   "pib_tri": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -201,7 +201,7 @@
   },
   "gini": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-27",
+   "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -248,15 +248,15 @@
   },
   "cesta_sp": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
-   "fonte": "DIEESE (Pesquisa Nacional da Cesta Básica)",
-   "ativo": false,
-   "ultimo_erro": "Definir a URL da tabela mensal do DIEESE e conferir o layout",
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
+   "fonte": "DIEESE/Conab (Pesquisa Nacional da Cesta Básica)",
+   "ativo": true,
+   "ultimo_erro": null,
    "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
-   "ultima_ref": null,
+   "ultima_ref": "2026-09-01",
    "atrasado": false,
-   "status": "cinza"
+   "status": "verde"
   },
   "caged": {
    "falhas_consecutivas": 0,
@@ -272,15 +272,15 @@
   },
   "dpf": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "Tesouro Nacional (Tesouro Transparente/CKAN)",
-   "ativo": false,
-   "ultimo_erro": "Definir o id do dataset CKAN e as colunas de data e valor",
+   "ativo": true,
+   "ultimo_erro": null,
    "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
-   "ultima_ref": null,
+   "ultima_ref": "2026-08-01",
    "atrasado": false,
-   "status": "cinza"
+   "status": "verde"
   },
   "cds": {
    "falhas_consecutivas": 0,
@@ -296,110 +296,179 @@
   },
   "sm_cestas": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "Calculado: BCB SGS 1619 / DIEESE cesta SP",
    "ativo": true,
-   "ultimo_erro": "aguardando cesta_sp",
+   "ultimo_erro": null,
    "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
+   "ultima_ref": "2026-09-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "arrecadacao": {
+   "falhas_consecutivas": 1,
+   "ultima_coleta_ok": null,
+   "ultimo_dado_novo": null,
+   "fonte": "Tesouro Nacional (Resultado do Tesouro Nacional)",
+   "ativo": true,
+   "ultimo_erro": "RTN: linha 'Receita Total' não encontrada",
+   "sugestao": "O formato da resposta mudou. Revisar o parser do coletor; enquanto isso, usar manual.csv.",
    "ultima_ref": null,
    "atrasado": false,
-   "status": "cinza"
+   "status": "amarelo"
+  },
+  "desmat_deter": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
+   "fonte": "INPE (DETER, TerraBrasilis)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-09-01",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "ibovespa": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
+   "fonte": "B3 (Estatísticas de Índices)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-27",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "gasolina": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
+   "fonte": "ANP (Levantamento de Preços de Combustíveis)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-24",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "etanol": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
+   "fonte": "ANP (Levantamento de Preços de Combustíveis)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-24",
+   "atrasado": false,
+   "status": "verde"
+  },
+  "diesel": {
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
+   "fonte": "ANP (Levantamento de Preços de Combustíveis)",
+   "ativo": true,
+   "ultimo_erro": null,
+   "ultima_ref": "2026-10-24",
+   "atrasado": false,
+   "status": "verde"
   }
  },
  "fontes": {
-  "Banco Central do Brasil (SGS)": "amarelo",
+  "Banco Central do Brasil (SGS)": "verde",
   "Banco Central do Brasil (Focus, API Olinda)": "verde",
   "IBGE (SIDRA)": "verde",
-  "DIEESE (Pesquisa Nacional da Cesta Básica)": "cinza",
+  "DIEESE/Conab (Pesquisa Nacional da Cesta Básica)": "verde",
   "Ministério do Trabalho e Emprego (Novo Caged)": "cinza",
-  "Tesouro Nacional (Tesouro Transparente/CKAN)": "cinza",
+  "Tesouro Nacional (Tesouro Transparente/CKAN)": "verde",
   "Sem fonte gratuita e estável identificada": "cinza",
-  "Calculado: BCB SGS 1619 / DIEESE cesta SP": "cinza"
+  "Calculado: BCB SGS 1619 / DIEESE cesta SP": "verde",
+  "Tesouro Nacional (Resultado do Tesouro Nacional)": "amarelo",
+  "INPE (DETER, TerraBrasilis)": "verde",
+  "B3 (Estatísticas de Índices)": "verde",
+  "ANP (Levantamento de Preços de Combustíveis)": "verde"
  },
  "integridade": [],
  "status_geral": "amarelo",
- "atualizado": "2026-10-27",
+ "atualizado": "2026-10-28",
  "ultima_execucao": {
-  "data": "2026-10-27",
+  "data": "2026-10-28",
   "resultados": {
    "dolar": {
     "status": "ok",
-    "novos": 500
+    "novos": 1
    },
    "euro": {
     "status": "ok",
-    "novos": 500
+    "novos": 1
    },
    "selic": {
-    "status": "erro",
-    "novos": 0,
-    "erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026",
-    "tipo": "rede"
+    "status": "ok",
+    "novos": 731
    },
    "ipca_m": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "ipca_12": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "dbgg": {
     "status": "ok",
-    "novos": 23
+    "novos": 0
    },
    "dlsp": {
     "status": "ok",
-    "novos": 23
+    "novos": 0
    },
    "primario": {
     "status": "ok",
-    "novos": 23
+    "novos": 0
    },
    "ibcbr": {
     "status": "ok",
-    "novos": 23
+    "novos": 0
    },
    "salario_min": {
     "status": "ok",
-    "novos": 25
+    "novos": 0
    },
    "focus_ipca": {
     "status": "ok",
-    "novos": 60
+    "novos": 0
    },
    "focus_selic": {
     "status": "ok",
-    "novos": 60
+    "novos": 0
    },
    "focus_pib": {
     "status": "ok",
-    "novos": 60
+    "novos": 0
    },
    "desocup": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "ocup": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "informal": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "renda_real": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "pib_tri": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "gini": {
     "status": "ok",
-    "novos": 14
+    "novos": 0
    },
    "inseg_grave": {
     "status": "inativo",
@@ -417,9 +486,8 @@
     "erro": "Idem pobreza"
    },
    "cesta_sp": {
-    "status": "inativo",
-    "novos": 0,
-    "erro": "Definir a URL da tabela mensal do DIEESE e conferir o layout"
+    "status": "ok",
+    "novos": 23
    },
    "caged": {
     "status": "inativo",
@@ -427,18 +495,43 @@
     "erro": "Definir a URL da planilha oficial mensal e os rótulos de linha/coluna"
    },
    "dpf": {
-    "status": "inativo",
-    "novos": 0,
-    "erro": "Definir o id do dataset CKAN e as colunas de data e valor"
+    "status": "ok",
+    "novos": 24
    },
    "cds": {
     "status": "inativo",
     "novos": 0,
     "erro": "Desativado por decisão de arquitetura; ver README"
    },
-   "sm_cestas": {
-    "status": "inativo",
+   "arrecadacao": {
+    "status": "erro",
     "novos": 0,
+    "erro": "RTN: linha 'Receita Total' não encontrada",
+    "tipo": "layout"
+   },
+   "desmat_deter": {
+    "status": "ok",
+    "novos": 24
+   },
+   "ibovespa": {
+    "status": "ok",
+    "novos": 706
+   },
+   "gasolina": {
+    "status": "ok",
+    "novos": 107
+   },
+   "etanol": {
+    "status": "ok",
+    "novos": 107
+   },
+   "diesel": {
+    "status": "ok",
+    "novos": 107
+   },
+   "sm_cestas": {
+    "status": "ok",
+    "novos": 23,
     "erro": "aguardando cesta_sp"
    }
   }
