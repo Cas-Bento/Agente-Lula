@@ -109,6 +109,22 @@ def test_rtn_acumulado_12m():
     with pytest.raises(LayoutErro):
         tesouro_rtn.parse_linhas(_rtn(), "Receita Inexistente", "u")
     assert tesouro_rtn.mes_cabecalho("jan/97") == date(1997, 1, 1)
+    assert tesouro_rtn.mes_cabecalho(46204) == date(2026, 7, 1)
+
+
+def test_rtn_layout_real():
+    """Reproduz a planilha de jul/2026: meses como número de série, rótulo com nota "1/"."""
+    seriais = [45870, 45901, 45931, 45962, 45992, 46023, 46054, 46082, 46113, 46143, 46174, 46204]
+    mensal = [219614.37, 216368.82, 268185.67, 218448.44, 312023.27, 322088.83,
+              219030.45, 235025.65, 279491.45, 256223.38, 251923.54, 275883.96]
+    antes = [(date(2024 + (m > 12), (m - 1) % 12 + 1, 1) - date(1899, 12, 30)).days for m in range(8, 20)]  # ago/24 a jul/25
+    linhas = [("Voltar",), ("Tabela 1.1. Resultado Primário do Governo Central - Brasil - Mensal - Resumida",),
+              ("R$ Milhões - Valores Correntes ",), (None,),
+              ("Discriminação",) + tuple(antes) + tuple(seriais),
+              ("1. RECEITA TOTAL 1/",) + (200000.0,) * 12 + tuple(mensal),
+              ("1.1 -  Receita Administrada pela RFB",) + (1.0,) * 24]
+    obs = tesouro_rtn.parse_linhas(linhas, "Receita Total", "u")
+    assert obs[-1]["ref"] == "2026-07-01" and obs[-1]["valor"] == pytest.approx(sum(mensal) / 1000)
 
 
 def test_catalogo_novos():
@@ -142,3 +158,44 @@ def test_ponta_a_ponta_novos(ambiente):
     dashboard.gerar() if hasattr(dashboard, "gerar") else dashboard.main()
     html = (ambiente / "site" / "dashboard.html").read_text(encoding="utf-8")
     assert "Meio ambiente" in html and "ibovespa" in html
+
+
+def test_sidra_inseguranca_alimentar_formato_real():
+    """Resposta real da API SIDRA para a tabela 6665 (conferida em 28/10/2026)."""
+    from coletores import ibge_sidra
+    path = config.CATALOGO["inseg_grave"]["params"]["path"]
+    url = ibge_sidra.url_coleta(path, False)
+    assert url.endswith("t/6665/n1/all/v/800/p/last%206/c12404/109102")
+    payload = [{"NC": "Nível Territorial (Código)", "MN": "Unidade de Medida", "V": "Valor",
+                "D1N": "Brasil", "D2C": "Variável (Código)", "D2N": "Variável", "D3C": "Ano (Código)", "D3N": "Ano",
+                "D4C": "Situação (Código)", "D4N": "Situação de segurança alimentar existente no domicílio"},
+               {"V": "4.1", "D2C": "800", "D3C": "2023", "D4C": "109102"},
+               {"V": "3.2", "D2C": "800", "D3C": "2024", "D4C": "109102"}]
+    obs = ibge_sidra.parse(payload, url, "anual", "800")
+    assert [(o["ref"], o["valor"]) for o in obs] == [("2023-12-01", 4.1), ("2024-12-01", 3.2)]
+
+
+def test_ativados_em_28_10():
+    for id_ in ("inseg_grave", "pobreza", "ext_pobreza", "caged"):
+        assert config.CATALOGO[id_]["ativo"] and not config.CATALOGO[id_]["validar"]
+    assert "cds" not in config.CATALOGO
+    assert all(i["ativo"] for i in config.INDICADORES)
+
+
+def test_indicador_retirado_sai_do_painel_sem_perder_historico(ambiente):
+    import json
+    from datetime import date as d
+    import coletor
+    from tests.conftest import fonte_falsa
+    coletor.executar(hoje=d(2026, 10, 28), coletar_fn=fonte_falsa({}))
+    arq = ambiente / "data" / "dados.json"
+    dados = json.loads(arq.read_text())
+    antigo = {"nome": "Risco-país CDS 5 anos", "baseline": {"ref": "2026-10-26", "valor": 150.0},
+              "serie": [{"ref": "2026-10-26", "valor": 150.0}]}
+    dados["indicadores"]["cds"] = antigo
+    dados["baseline_selos"]["cds"] = coletor.selo(antigo["baseline"])
+    arq.write_text(json.dumps(dados))
+    dados, saude = coletor.executar(hoje=d(2026, 11, 2), coletar_fn=fonte_falsa({}))
+    assert "cds" not in dados["indicadores"] and "cds" not in dados["baseline_selos"]
+    assert dados["descontinuados"]["cds"]["registro"]["serie"][0]["valor"] == 150.0
+    assert not saude.get("integridade")

@@ -13,13 +13,14 @@ O acumulado é a soma dos 12 valores mensais oficiais mais recentes (cálculo, n
 só é gravado quando os 12 meses existem. Substitui o "Impostômetro", que é uma estimativa da
 Associação Comercial de São Paulo e não é fonte oficial.
 
-Layout ainda NÃO conferido no arquivo real: o parser procura a linha pelo rótulo e o cabeçalho
-de meses por tipo de dado. Se não encontrar, LayoutErro e nada é gravado.
+Layout conferido em 28/10/2026 (seriehistoricajul26.xlsx): aba "1.1", cabeçalho na linha 5
+("Discriminação" + meses como data), linha 6 = "1. RECEITA TOTAL 1/" (com nota de rodapé).
+Se o rótulo ou o cabeçalho mudarem, LayoutErro e nada é gravado.
 """
 import io
 import re
 import unicodedata
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from urllib.parse import quote
 
 from coletores.util import Desativado, LayoutErro, http_get, http_json, num
@@ -37,6 +38,9 @@ def _norm(s):
 def mes_cabecalho(v):
     if isinstance(v, (datetime, date)):
         return date(v.year, v.month, 1)
+    if isinstance(v, (int, float)) and not isinstance(v, bool) and float(v).is_integer() and 30000 < v < 80000:
+        d = date(1899, 12, 30) + timedelta(days=int(v))  # data como número de série do Excel
+        return date(d.year, d.month, 1)
     s = _norm(v)
     m = re.fullmatch(r"([a-z]{3})[a-z]*[/\-\s]*(\d{2}|\d{4})", s)
     if m and m.group(1) in MESES:
@@ -59,7 +63,8 @@ def parse_linhas(linhas, rotulo, url, divisor=1000):
     linha = None
     for l in linhas[cab + 1:]:
         textos = [_norm(c) for c in l[:3] if isinstance(c, str)]
-        if any(re.sub(r"^[\d.\s\-]+", "", t) == alvo for t in textos):
+        # "1. RECEITA TOTAL 1/": remove o código à esquerda e as notas de rodapé ("1/") à direita
+        if any(re.sub(r"(\s+\d+/)+$", "", re.sub(r"^[\d.\s\-]+", "", t)) == alvo for t in textos):
             linha = l
             break
     if linha is None:

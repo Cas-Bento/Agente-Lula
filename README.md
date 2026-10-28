@@ -22,7 +22,7 @@ relatório sai com as seções numéricas e um aviso.
 
 ```
 config.py               catálogo de indicadores, faixas de sanidade, prazos de atraso
-coletores/              um módulo por fonte (bcb_sgs, bcb_focus, ibge_sidra, dieese, mte_caged, tesouro, cds)
+coletores/              um módulo por fonte (bcb_sgs, bcb_focus, ibge_sidra, dieese, tesouro, tesouro_rtn, anp, b3, inpe_deter)
 validacao.py            faixa plausível, variação máxima, domínio oficial, data futura
 coletor.py              orquestrador: dedup, revisões, quarentena, trava e selo da linha de base, saúde, rotação
 resumo.py               variações contra período anterior e linha de base (código, não IA)
@@ -97,7 +97,11 @@ Conferidos nas APIs oficiais em 27/10/2026:
 | gasolina, etanol, diesel | ANP | `semanal-brasil-desde-2013.xlsx`, produtos GASOLINA COMUM, ETANOL HIDRATADO, OLEO DIESEL S10 | Layout conferido em 28/10/2026: semana 18 a 24/10/2026 com R$ 6,49 / 4,11 / 7,32 por litro |
 | desmat_deter | INPE TerraBrasilis | WFS `deter-amz:deter_amz`, classes DESMATAMENTO_CR + DESMATAMENTO_VEG + MINERACAO, soma de `areamunkm` por mês de `view_date` | Conferido em 28/10/2026: set/2026 = 350,19 km²; histórico desde ago/2016 |
 | ibovespa | B3 | `indexStatisticsProxy/IndexCall/GetPortfolioDay` (IBOV, ano) | Conferido em 28/10/2026: 205.082,56 em 23/10 e 176.608,23 em 26/10/2026 (queda de 13,9% no dia da linha de base; `var_max` ajustado para 25% para não mandar para quarentena) |
-| arrecadacao | Tesouro (RTN) | dataset CKAN `resultado-do-tesouro-nacional`, aba 1.1, linha "Receita Total", soma de 12 meses | **VALIDAR**: o XLSX não pôde ser aberto daqui; o parser procura rótulo e meses. Se falhar, a Issue mostra o motivo |
+| arrecadacao | Tesouro (RTN) | dataset CKAN `resultado-do-tesouro-nacional`, aba 1.1, linha "Receita Total", soma de 12 meses | Conferido em 28/10/2026 (seriehistoricajul26.xlsx): rótulo real "1. RECEITA TOTAL 1/"; 12 meses até jul/2026 = R$ 3.074,31 bilhões |
+| caged | SGS | 28763 | Estoque de empregos formais do Novo Caged: 48.244.696 em ago/2026. A variação mensal equivale ao saldo |
+| inseg_grave | SIDRA | 6665 / v800 / c12404=109102 | ODS 2.1.2, % de domicílios com insegurança alimentar grave: 4,1% (2023) e 3,2% (2024) |
+| pobreza | SIDRA | 5877 / v9948 | ODS 1.2.1, % abaixo da linha de pobreza nacional: 26,5% em 2024 |
+| ext_pobreza | SIDRA | 5817 / v9617 | ODS 1.1.1, % abaixo da linha de pobreza internacional: 4,7% em 2024 |
 
 Pendentes:
 
@@ -107,19 +111,18 @@ Pendentes:
 | ibcbr | idem | Buscar 24364 no SGS e confirmar "com ajuste sazonal" |
 | dolar, euro, selic, ipca_m, ipca_12, dlsp | códigos do briefing, padrão de mercado | Buscar no SGS e confirmar descrição e unidade. Teste rápido: `https://api.bcb.gov.br/dados/serie/bcdata.sgs.<código>/dados/ultimos/3?formato=json` |
 | focus_* | nomes "IPCA", "Selic", "PIB Total" | `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$top=5&$format=json&$filter=Indicador eq 'PIB Total'` deve retornar linhas |
-| inseg_grave | **desativado** | Localizar no SIDRA a tabela do suplemento de segurança alimentar da PNAD Contínua; testar `https://apisidra.ibge.gov.br/values/t/<tabela>/n1/all/v/all/p/last 1`; preencher `path` em config.py |
-| pobreza, ext_pobreza | **desativados** | A SIS é publicada em planilhas. Verificar se há tabela SIDRA com % da população abaixo das linhas de pobreza; se não houver, criar coletor de planilha no padrão do `mte_caged.py` |
-| caged | **desativado** | Definir a URL da planilha mensal oficial do MTE e os rótulos de linha/coluna |
-| cds | **desativado por decisão** | Ver seção CDS |
 
 Para ativar um coletor: preencher os parâmetros, mudar `ativo` para `True` em `config.py`, rodar `pytest` e `python coletor.py --hoje <data>` localmente.
 
-### CDS (risco-país)
+### Indicadores retirados
 
-Não identifiquei fonte de mercado gratuita, estável e com termos de uso que permitam coleta automatizada. Raspar sites de cotação violaria a regra de não usar agregadores e quebraria com frequência. O indicador fica no catálogo, desativado e visível no dashboard. Alternativa futura: API paga licenciada, implementada em `coletores/cds.py`.
+- **Risco-país (CDS 5 anos)**, retirado em 28/10/2026. Não há fonte gratuita, oficial e estável: as cotações de CDS são de provedores pagos, e a série EMBI+ Risco-Brasil do Ipeadata (JPM366_EMBI366) está inativa. Para reincluir, criar um coletor licenciado e devolver a entrada ao `config.py`.
+- Quando um indicador sai do `config.py`, o coletor o move para `descontinuados` no dados.json, com série, linha de base e selo. Nada é apagado.
 
 ### Escolhas de fonte (28/10/2026)
 
+- **Pobreza e extrema pobreza vêm dos indicadores ODS do IBGE, não da SIS.** A SIS só sai em planilhas; os ODS têm tabela no SIDRA com a mesma base (PNAD Contínua), mas as linhas de corte podem diferir das usadas na SIS, então os percentuais não são diretamente comparáveis com as manchetes da SIS. Antes de citar, conferir a definição da linha nos metadados ODS do IBGE.
+- **Insegurança alimentar** é um suplemento esporádico da PNAD Contínua (2004, 2009, 2013, 2018, 2023, 2024): não gera alerta de atraso.
 - **Impostômetro não foi usado.** É uma estimativa da Associação Comercial de São Paulo, não um dado oficial. O equivalente oficial é a Receita Total do Governo Central, do Resultado do Tesouro Nacional, acumulada em 12 meses (soma dos valores mensais publicados; evita a sazonalidade mensal). Cobre só a esfera federal.
 - **Desmatamento usa DETER, não PRODES.** DETER é o sistema de alerta mensal do INPE; PRODES é a taxa oficial anual (ago a jul), divulgada uma vez por ano. DETER serve para acompanhar tendência; não deve ser citado como taxa oficial. O mês só é gravado 15 dias após terminar, porque avisos atrasados ainda entram nesse prazo.
 - **Ibovespa vem da B3**, que calcula o índice. É a única fonte não governamental do sistema (exceção prevista para dados de mercado). O endpoint é o da página pública da B3, sem documentação formal: pode mudar sem aviso.

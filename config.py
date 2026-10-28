@@ -34,7 +34,7 @@ OLINDA_FOCUS = ("https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1
                 "ExpectativasMercadoAnuais")
 
 EIXOS = ["Custo de vida", "Câmbio", "Juros", "Fiscal", "Trabalho", "Social",
-         "Atividade", "Expectativas", "Externo", "Mercado", "Meio ambiente"]
+         "Atividade", "Expectativas", "Mercado", "Meio ambiente"]
 
 
 def _sgs(id_, nome, codigo, un, eixo, melhor, per, atraso, faixa, var, cal, validar=None):
@@ -119,18 +119,22 @@ INDICADORES = [
     _sidra("gini", "Índice de Gini (rendimento domiciliar per capita)",
            "t/7435/n1/all/v/10681", "anual", "índice", "Social", "baixo", "anual", 720,
            (0.3, 0.8), ("abs", 0.05), "Anual, PNAD Contínua rendimentos (2º semestre)"),
-    _sidra("inseg_grave", "Insegurança alimentar grave (EBIA)", None, "anual", "% domicílios",
+    # Tabelas SIDRA dos indicadores ODS (conferidas na API em 28/10/2026):
+    # 6665 = ODS 2.1.2, situação de segurança alimentar (EBIA), suplemento da PNAD Contínua;
+    # 5877 = ODS 1.2.1, pobreza pela linha nacional; 5817 = ODS 1.1.1, pobreza pela linha
+    # internacional (usada como extrema pobreza). Não são os números da SIS: ver README.
+    _sidra("inseg_grave", "Insegurança alimentar grave (EBIA, % domicílios)",
+           "t/6665/n1/all/v/800/c12404/109102", "anual", "% domicílios",
            "Social", "baixo", "esporadica", None, (0, 50), ("abs", 10),
-           "Esporádica (suplemento da PNAD Contínua)",
-           validar="Identificar a tabela SIDRA do suplemento de segurança alimentar"),
-    _sidra("pobreza", "Pessoas em pobreza (SIS)", None, "anual", "% população", "Social",
+           "Esporádica (suplemento da PNAD Contínua; 2023 e 2024 publicados)"),
+    _sidra("pobreza", "Abaixo da linha de pobreza nacional (ODS 1.2.1)",
+           "t/5877/n1/all/v/9948", "anual", "% população", "Social",
            "baixo", "anual", 720, (0, 80), ("abs", 10),
-           "Anual, Síntese de Indicadores Sociais (dezembro)",
-           validar="SIS é publicada em planilhas; confirmar se há tabela SIDRA equivalente"),
-    _sidra("ext_pobreza", "Pessoas em extrema pobreza (SIS)", None, "anual", "% população",
+           "Anual, indicadores ODS do IBGE (base PNAD Contínua)"),
+    _sidra("ext_pobreza", "Abaixo da linha de pobreza internacional (ODS 1.1.1)",
+           "t/5817/n1/all/v/9617", "anual", "% população",
            "Social", "baixo", "anual", 720, (0, 50), ("abs", 10),
-           "Anual, Síntese de Indicadores Sociais (dezembro)",
-           validar="Idem pobreza"),
+           "Anual, indicadores ODS do IBGE (base PNAD Contínua)"),
 
     # ---------------- Fontes sem API REST formal -------------------------------------------
     dict(id="cesta_sp", nome="Cesta básica São Paulo", un="R$", eixo="Custo de vida",
@@ -145,13 +149,11 @@ INDICADORES = [
          url="https://www.dieese.org.br/cesta/", periodicidade="mensal", atraso_max_dias=75,
          faixa=(0.3, 10), var_max=("rel", 0.25),
          calendario="Recalculado quando sai nova cesta", ativo=True, validar=None),
-    dict(id="caged", nome="Saldo do Novo Caged", un="vagas", eixo="Trabalho", melhor="alto",
-         fonte="Ministério do Trabalho e Emprego (Novo Caged)", coletor="mte_caged",
-         params={"url": None, "rotulo_linha": "Brasil", "rotulo_coluna": "Saldo"},  # VALIDAR
-         url="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/novo-caged",
-         periodicidade="mensal", atraso_max_dias=100, faixa=(-3_000_000, 3_000_000),
-         var_max=("abs", 1_500_000), calendario="Mensal, ~30 dias após o mês", ativo=False,
-         validar="Definir a URL da planilha oficial mensal e os rótulos de linha/coluna"),
+    # Novo Caged pelo SGS do BCB: série 28763 = estoque de empregos formais (conferida em
+    # 28/10/2026: 48.244.696 em ago/2026). A variação mês a mês é o saldo de empregos.
+    _sgs("caged", "Empregos formais (estoque Novo Caged)", 28763, "vagas", "Trabalho", "alto",
+         "mensal", 100, (30_000_000, 80_000_000), ("rel", 0.03),
+         "Mensal, ~30 dias após o mês (MTE, republicado no SGS)"),
     dict(id="dpf", nome="Dívida Pública Federal (estoque em mercado)", un="R$ trilhões", eixo="Fiscal",
          melhor="baixo", fonte="Tesouro Nacional (Tesouro Transparente/CKAN)", coletor="tesouro",
          # dataset "Estoque da Dívida Pública Federal"; soma da classe Mercado (DPF em poder do público)
@@ -159,11 +161,6 @@ INDICADORES = [
          url="https://www.tesourotransparente.gov.br/ckan/dataset/0998f610-bc25-4ce3-b32c-a873447500c2",
          periodicidade="mensal", atraso_max_dias=95, faixa=(1, 50), var_max=("rel", 0.15),
          calendario="Mensal, último decêndio do mês seguinte", ativo=True, validar=None),
-    dict(id="cds", nome="Risco-país CDS 5 anos", un="pontos", eixo="Externo", melhor="baixo",
-         fonte="Sem fonte gratuita e estável identificada", coletor="cds", params={},
-         url="", periodicidade="diaria", atraso_max_dias=None, faixa=(0, 2000),
-         var_max=("rel", 0.5), calendario="Diária (mercado)", ativo=False,
-         validar="Desativado por decisão de arquitetura; ver README"),
 
     # ---------------- Novos indicadores (28/10/2026) ----------------------------------------
     dict(id="arrecadacao", nome="Receita total do Governo Central (12 meses)", un="R$ bilhões",
@@ -173,8 +170,7 @@ INDICADORES = [
                  "rotulo": "Receita Total", "divisor": 1000},
          url="https://www.tesourotransparente.gov.br/ckan/dataset/resultado-do-tesouro-nacional",
          periodicidade="mensal", atraso_max_dias=100, faixa=(500, 10000), var_max=("rel", 0.10),
-         calendario="Mensal, RTN (~30 dias após o mês)", ativo=True,
-         validar="Layout do XLSX não conferido no arquivo real: confirmar na 1ª execução"),
+         calendario="Mensal, RTN (~30 dias após o mês)", ativo=True, validar=None),
     dict(id="desmat_deter", nome="Avisos de desmatamento na Amazônia (DETER)", un="km²",
          eixo="Meio ambiente", melhor="baixo", fonte="INPE (DETER, TerraBrasilis)", coletor="inpe_deter",
          params={}, url="https://terrabrasilis.dpi.inpe.br/app/dashboard/alerts/legal/amazon/aggregated/",

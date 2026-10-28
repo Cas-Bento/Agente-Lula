@@ -62,6 +62,12 @@ def sincronizar_catalogo(dados):
     for k in ("quarentena", "revisoes"):
         dados.setdefault(k, [])
     dados.setdefault("baseline_selos", {})
+    # Indicador retirado do config.py: sai do painel, mas a série, a linha de base e o selo
+    # vão para "descontinuados" (nada é apagado; trilha de auditoria preservada).
+    dados.setdefault("descontinuados", {})
+    for id_ in [k for k in dados["indicadores"] if k not in config.CATALOGO]:
+        dados["descontinuados"][id_] = {"registro": dados["indicadores"].pop(id_),
+                                        "selo": dados["baseline_selos"].pop(id_, None)}
 
 
 # ----------------------------------------------------------------------------- linha de base
