@@ -197,6 +197,7 @@ def atualizar_saude(saude, resultados, dados, hoje, coleta_iso):
         s["fonte"], s["ativo"] = ind["fonte"], ind["ativo"]
         if res["status"] == "ok":
             s["falhas_consecutivas"], s["ultimo_erro"], s["ultima_coleta_ok"] = 0, None, coleta_iso
+            s.pop("sugestao", None)
             if res["novos"]:
                 s["ultimo_dado_novo"] = coleta_iso
         elif res["status"] == "erro":
@@ -218,6 +219,8 @@ def atualizar_saude(saude, resultados, dados, hoje, coleta_iso):
             s["status"] = "amarelo"
         else:
             s["status"] = "verde"
+    for id_ in [k for k in saude["indicadores"] if k not in config.CATALOGO]:
+        del saude["indicadores"][id_]  # indicador retirado do catálogo
     ordem = {"vermelho": 3, "amarelo": 2, "verde": 1, "cinza": 0}
     fontes = {}
     for s in saude["indicadores"].values():

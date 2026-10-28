@@ -199,3 +199,28 @@ def test_indicador_retirado_sai_do_painel_sem_perder_historico(ambiente):
     assert "cds" not in dados["indicadores"] and "cds" not in dados["baseline_selos"]
     assert dados["descontinuados"]["cds"]["registro"]["serie"][0]["valor"] == 150.0
     assert not saude.get("integridade")
+
+
+def test_correcoes_28_10():
+    from coletores import dieese, util
+    # cesta: um "10,55" de outra tabela não pode ser lido como valor da cesta
+    txt = "Dezembro de 2024 São Paulo 10,55 -1,2 São Paulo 812,34 -0,50 55,00"
+    assert dieese.parse_texto(txt, "2024-12-01", "u", "São Paulo")["valor"] == 812.34
+    # JSON inválido (página HTML de erro do SGS) é repetido antes de desistir
+    respostas = iter([b"<html>erro</html>", b'[{"data":"27/10/2026","valor":"5.33"}]'])
+    orig = util.http_get
+    util.http_get = lambda url, **kw: next(respostas)
+    try:
+        assert util.http_json("https://api.bcb.gov.br/x", _sleep=lambda s: None)[0]["valor"] == "5.33"
+    finally:
+        util.http_get = orig
+
+
+def test_saude_remove_indicador_retirado(ambiente):
+    from datetime import date as d
+    import coletor
+    from tests.conftest import fonte_falsa
+    saude = {"indicadores": {"cds": {"status": "cinza", "fonte": "Sem fonte"}}}
+    dados, _ = coletor.executar(hoje=d(2026, 10, 28), coletar_fn=fonte_falsa({}))
+    s = coletor.atualizar_saude(saude, {}, dados, d(2026, 10, 28), "2026-10-28")
+    assert "cds" not in s["indicadores"] and "Sem fonte" not in s["fontes"]

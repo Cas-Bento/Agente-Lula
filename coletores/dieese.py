@@ -41,7 +41,7 @@ def parse_texto(texto, ref, url, cidade):
     plano = _sem_acento(" ".join(texto.split()))
     if not re.search(rf"{nome_mes}\s*(de|/)\s*{ano}", plano):
         raise LayoutErro(f"DIEESE: mês {nome_mes}/{ano} não consta no boletim {url}")
-    padrao = rf"{re.escape(_sem_acento(cidade))}\s+(\d{{2,4}}(?:\.\d{{3}})*,\d{{2}})\s+[-+]?\d+,\d{{1,2}}"
+    padrao = rf"{re.escape(_sem_acento(cidade))}\s+(\d{{1,2}}\.\d{{3}},\d{{2}}|\d{{3,4}},\d{{2}})\s+[-+]?\d+,\d{{1,2}}"
     m = re.search(padrao, plano)
     if not m:
         raise LayoutErro(f"DIEESE: linha '{cidade}' da Tabela 1 não encontrada em {url}")

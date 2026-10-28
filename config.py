@@ -169,7 +169,7 @@ INDICADORES = [
          params={"dataset": "ab56485b-9c40-4efb-8563-9ce3e1973c4b", "aba": "1.1",
                  "rotulo": "Receita Total", "divisor": 1000},
          url="https://www.tesourotransparente.gov.br/ckan/dataset/resultado-do-tesouro-nacional",
-         periodicidade="mensal", atraso_max_dias=100, faixa=(500, 10000), var_max=("rel", 0.10),
+         periodicidade="mensal", atraso_max_dias=130, faixa=(500, 10000), var_max=("rel", 0.10),
          calendario="Mensal, RTN (~30 dias após o mês)", ativo=True, validar=None),
     dict(id="desmat_deter", nome="Avisos de desmatamento na Amazônia (DETER)", un="km²",
          eixo="Meio ambiente", melhor="baixo", fonte="INPE (DETER, TerraBrasilis)", coletor="inpe_deter",

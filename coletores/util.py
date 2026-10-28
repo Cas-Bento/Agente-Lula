@@ -48,12 +48,19 @@ def http_get(url, tentativas=None, timeout=None, _sleep=time.sleep):
     raise ultimo
 
 
-def http_json(url, **kw):
-    corpo = http_get(url, **kw)
-    try:
-        return json.loads(corpo.decode("utf-8-sig"))
-    except (ValueError, UnicodeDecodeError) as e:
-        raise LayoutErro(f"JSON inválido em {url}: {e}") from e
+def http_json(url, _sleep=time.sleep, **kw):
+    """Algumas APIs (ex.: SGS do BCB) devolvem eventualmente uma página HTML de erro com
+    status 200. Isso é instabilidade, não mudança de layout: repete antes de desistir."""
+    erro = None
+    for i in range(config.TENTATIVAS):
+        corpo = http_get(url, **kw)
+        try:
+            return json.loads(corpo.decode("utf-8-sig"))
+        except (ValueError, UnicodeDecodeError) as e:
+            erro = e
+            if i < config.TENTATIVAS - 1:
+                _sleep(config.BACKOFF_BASE_S * (2 ** i))
+    raise ColetaErro(f"JSON inválido em {url} após {config.TENTATIVAS} tentativas: {erro}")
 
 
 def num(txt):

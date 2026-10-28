@@ -61,7 +61,7 @@ def montar_payload(dados, saude, hoje):
 
 def chamar_ia(payload, chave, _urlopen=urllib.request.urlopen):
     corpo = json.dumps({
-        "model": MODELO, "max_tokens": 2500, "temperature": 0, "system": SISTEMA,
+        "model": MODELO, "max_tokens": 2500, "system": SISTEMA,
         "messages": [{"role": "user", "content": json.dumps(payload, ensure_ascii=False)}],
     }).encode()
     ultimo = None
@@ -77,7 +77,11 @@ def chamar_ia(payload, chave, _urlopen=urllib.request.urlopen):
                 raise ValueError("resposta da IA sem JSON")
             return json.loads(m.group(0)), r.get("usage", {})
         except urllib.error.HTTPError as e:
-            ultimo = f"HTTP {e.code}"
+            try:  # a API explica o motivo no corpo (ex.: saldo de créditos, modelo inválido)
+                msg = json.loads(e.read() or b"{}").get("error", {}).get("message", "")
+            except Exception:
+                msg = ""
+            ultimo = f"HTTP {e.code}" + (f": {msg[:200]}" if msg else "")
             if e.code not in (429, 500, 502, 503, 529):
                 break
         except Exception as e:
