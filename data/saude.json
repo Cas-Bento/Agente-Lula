@@ -12,27 +12,28 @@
    "status": "verde"
   },
   "euro": {
-   "falhas_consecutivas": 0,
+   "falhas_consecutivas": 1,
    "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
-   "ultimo_erro": null,
+   "ultimo_erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
    "ultima_ref": "2026-10-27",
    "atrasado": false,
-   "status": "verde"
+   "status": "amarelo",
+   "sugestao": "O formato da resposta mudou. Revisar o parser do coletor; enquanto isso, usar manual.csv."
   },
   "selic": {
-   "falhas_consecutivas": 0,
+   "falhas_consecutivas": 1,
    "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
-   "ultimo_erro": null,
+   "ultimo_erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json",
    "sugestao": "Instabilidade ou bloqueio na fonte. Se persistir, testar a URL manualmente e verificar mudança de endpoint.",
    "ultima_ref": "2026-10-28",
    "atrasado": false,
-   "status": "verde"
+   "status": "amarelo"
   },
   "ipca_m": {
    "falhas_consecutivas": 0,
@@ -79,15 +80,16 @@
    "status": "verde"
   },
   "primario": {
-   "falhas_consecutivas": 0,
+   "falhas_consecutivas": 1,
    "ultima_coleta_ok": "2026-10-28",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
-   "ultimo_erro": null,
+   "ultimo_erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
    "ultima_ref": "2026-08-01",
    "atrasado": false,
-   "status": "verde"
+   "status": "amarelo",
+   "sugestao": "O formato da resposta mudou. Revisar o parser do coletor; enquanto isso, usar manual.csv."
   },
   "ibcbr": {
    "falhas_consecutivas": 0,
@@ -212,39 +214,39 @@
   },
   "inseg_grave": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "IBGE (SIDRA)",
-   "ativo": false,
-   "ultimo_erro": "Identificar a tabela SIDRA do suplemento de segurança alimentar",
+   "ativo": true,
+   "ultimo_erro": null,
    "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
-   "ultima_ref": null,
+   "ultima_ref": "2024-12-01",
    "atrasado": false,
-   "status": "cinza"
+   "status": "verde"
   },
   "pobreza": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "IBGE (SIDRA)",
-   "ativo": false,
-   "ultimo_erro": "SIS é publicada em planilhas; confirmar se há tabela SIDRA equivalente",
+   "ativo": true,
+   "ultimo_erro": null,
    "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
-   "ultima_ref": null,
+   "ultima_ref": "2024-12-01",
    "atrasado": false,
-   "status": "cinza"
+   "status": "verde"
   },
   "ext_pobreza": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "IBGE (SIDRA)",
-   "ativo": false,
-   "ultimo_erro": "Idem pobreza",
+   "ativo": true,
+   "ultimo_erro": null,
    "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
-   "ultima_ref": null,
+   "ultima_ref": "2024-12-01",
    "atrasado": false,
-   "status": "cinza"
+   "status": "verde"
   },
   "cesta_sp": {
    "falhas_consecutivas": 0,
@@ -260,15 +262,15 @@
   },
   "caged": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
-   "fonte": "Ministério do Trabalho e Emprego (Novo Caged)",
-   "ativo": false,
-   "ultimo_erro": "Definir a URL da planilha oficial mensal e os rótulos de linha/coluna",
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
+   "fonte": "Banco Central do Brasil (SGS)",
+   "ativo": true,
+   "ultimo_erro": null,
    "sugestao": "Coletor desativado ou não configurado (VALIDAR). Ver README.",
-   "ultima_ref": null,
+   "ultima_ref": "2026-08-01",
    "atrasado": false,
-   "status": "cinza"
+   "status": "verde"
   },
   "dpf": {
    "falhas_consecutivas": 0,
@@ -307,15 +309,15 @@
    "status": "verde"
   },
   "arrecadacao": {
-   "falhas_consecutivas": 1,
-   "ultima_coleta_ok": null,
-   "ultimo_dado_novo": null,
+   "falhas_consecutivas": 0,
+   "ultima_coleta_ok": "2026-10-28",
+   "ultimo_dado_novo": "2026-10-28",
    "fonte": "Tesouro Nacional (Resultado do Tesouro Nacional)",
    "ativo": true,
-   "ultimo_erro": "RTN: linha 'Receita Total' não encontrada",
+   "ultimo_erro": null,
    "sugestao": "O formato da resposta mudou. Revisar o parser do coletor; enquanto isso, usar manual.csv.",
-   "ultima_ref": null,
-   "atrasado": false,
+   "ultima_ref": "2026-07-01",
+   "atrasado": true,
    "status": "amarelo"
   },
   "desmat_deter": {
@@ -375,11 +377,10 @@
   }
  },
  "fontes": {
-  "Banco Central do Brasil (SGS)": "verde",
+  "Banco Central do Brasil (SGS)": "amarelo",
   "Banco Central do Brasil (Focus, API Olinda)": "verde",
   "IBGE (SIDRA)": "verde",
   "DIEESE/Conab (Pesquisa Nacional da Cesta Básica)": "verde",
-  "Ministério do Trabalho e Emprego (Novo Caged)": "cinza",
   "Tesouro Nacional (Tesouro Transparente/CKAN)": "verde",
   "Sem fonte gratuita e estável identificada": "cinza",
   "Calculado: BCB SGS 1619 / DIEESE cesta SP": "verde",
@@ -396,15 +397,19 @@
   "resultados": {
    "dolar": {
     "status": "ok",
-    "novos": 1
+    "novos": 0
    },
    "euro": {
-    "status": "ok",
-    "novos": 1
+    "status": "erro",
+    "novos": 0,
+    "erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
+    "tipo": "layout"
    },
    "selic": {
-    "status": "ok",
-    "novos": 731
+    "status": "erro",
+    "novos": 0,
+    "erro": "TimeoutError: The read operation timed out em https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json",
+    "tipo": "rede"
    },
    "ipca_m": {
     "status": "ok",
@@ -423,8 +428,10 @@
     "novos": 0
    },
    "primario": {
-    "status": "ok",
-    "novos": 0
+    "status": "erro",
+    "novos": 0,
+    "erro": "JSON inválido em https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados/ultimos/20?formato=json: Expecting value: line 1 column 1 (char 0)",
+    "tipo": "layout"
    },
    "ibcbr": {
     "status": "ok",
@@ -471,67 +478,56 @@
     "novos": 0
    },
    "inseg_grave": {
-    "status": "inativo",
-    "novos": 0,
-    "erro": "Identificar a tabela SIDRA do suplemento de segurança alimentar"
+    "status": "ok",
+    "novos": 6
    },
    "pobreza": {
-    "status": "inativo",
-    "novos": 0,
-    "erro": "SIS é publicada em planilhas; confirmar se há tabela SIDRA equivalente"
+    "status": "ok",
+    "novos": 13
    },
    "ext_pobreza": {
-    "status": "inativo",
-    "novos": 0,
-    "erro": "Idem pobreza"
+    "status": "ok",
+    "novos": 13
    },
    "cesta_sp": {
     "status": "ok",
-    "novos": 23
+    "novos": 0
    },
    "caged": {
-    "status": "inativo",
-    "novos": 0,
-    "erro": "Definir a URL da planilha oficial mensal e os rótulos de linha/coluna"
+    "status": "ok",
+    "novos": 23
    },
    "dpf": {
     "status": "ok",
-    "novos": 24
-   },
-   "cds": {
-    "status": "inativo",
-    "novos": 0,
-    "erro": "Desativado por decisão de arquitetura; ver README"
+    "novos": 0
    },
    "arrecadacao": {
-    "status": "erro",
-    "novos": 0,
-    "erro": "RTN: linha 'Receita Total' não encontrada",
-    "tipo": "layout"
+    "status": "ok",
+    "novos": 24
    },
    "desmat_deter": {
     "status": "ok",
-    "novos": 24
+    "novos": 0
    },
    "ibovespa": {
     "status": "ok",
-    "novos": 706
+    "novos": 0
    },
    "gasolina": {
     "status": "ok",
-    "novos": 107
+    "novos": 0
    },
    "etanol": {
     "status": "ok",
-    "novos": 107
+    "novos": 0
    },
    "diesel": {
     "status": "ok",
-    "novos": 107
+    "novos": 0
    },
    "sm_cestas": {
     "status": "ok",
-    "novos": 23,
+    "novos": 0,
     "erro": "aguardando cesta_sp"
    }
   }
