@@ -2,40 +2,40 @@
  "indicadores": {
   "dolar": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-10-27",
+   "ultima_ref": "2026-10-30",
    "atrasado": false,
    "status": "verde"
   },
   "euro": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-10-27",
+   "ultima_ref": "2026-10-30",
    "atrasado": false,
    "status": "verde"
   },
   "selic": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-10-28",
+   "ultima_ref": "2026-11-02",
    "atrasado": false,
    "status": "verde"
   },
   "ipca_m": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -46,7 +46,7 @@
   },
   "ipca_12": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -57,40 +57,40 @@
   },
   "dbgg": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-08-01",
+   "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
   },
   "dlsp": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-08-01",
+   "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
   },
   "primario": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-08-01",
+   "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
   },
   "ibcbr": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -101,18 +101,18 @@
   },
   "salario_min": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-10-01",
+   "ultima_ref": "2026-11-01",
    "atrasado": false,
    "status": "verde"
   },
   "focus_ipca": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (Focus, API Olinda)",
    "ativo": true,
@@ -123,7 +123,7 @@
   },
   "focus_selic": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (Focus, API Olinda)",
    "ativo": true,
@@ -134,7 +134,7 @@
   },
   "focus_pib": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "Banco Central do Brasil (Focus, API Olinda)",
    "ativo": true,
@@ -145,29 +145,29 @@
   },
   "desocup": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-08-01",
+   "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
   },
   "ocup": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-08-01",
+   "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
   },
   "informal": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -178,18 +178,18 @@
   },
   "renda_real": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-27",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-08-01",
+   "ultima_ref": "2026-09-01",
    "atrasado": false,
    "status": "verde"
   },
   "pib_tri": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -200,7 +200,7 @@
   },
   "gini": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-27",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -211,7 +211,7 @@
   },
   "inseg_grave": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -222,7 +222,7 @@
   },
   "pobreza": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -233,7 +233,7 @@
   },
   "ext_pobreza": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "IBGE (SIDRA)",
    "ativo": true,
@@ -244,7 +244,7 @@
   },
   "cesta_sp": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "DIEESE/Conab (Pesquisa Nacional da Cesta Básica)",
    "ativo": true,
@@ -255,7 +255,7 @@
   },
   "caged": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Banco Central do Brasil (SGS)",
    "ativo": true,
@@ -266,7 +266,7 @@
   },
   "dpf": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Tesouro Nacional (Tesouro Transparente/CKAN)",
    "ativo": true,
@@ -277,7 +277,7 @@
   },
   "sm_cestas": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Calculado: BCB SGS 1619 / DIEESE cesta SP",
    "ativo": true,
@@ -288,7 +288,7 @@
   },
   "arrecadacao": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "Tesouro Nacional (Resultado do Tesouro Nacional)",
    "ativo": true,
@@ -299,7 +299,7 @@
   },
   "desmat_deter": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "INPE (DETER, TerraBrasilis)",
    "ativo": true,
@@ -310,18 +310,18 @@
   },
   "ibovespa": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
-   "ultimo_dado_novo": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
+   "ultimo_dado_novo": "2026-11-02",
    "fonte": "B3 (Estatísticas de Índices)",
    "ativo": true,
    "ultimo_erro": null,
-   "ultima_ref": "2026-10-27",
+   "ultima_ref": "2026-10-30",
    "atrasado": false,
    "status": "verde"
   },
   "gasolina": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "ANP (Levantamento de Preços de Combustíveis)",
    "ativo": true,
@@ -332,7 +332,7 @@
   },
   "etanol": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "ANP (Levantamento de Preços de Combustíveis)",
    "ativo": true,
@@ -343,7 +343,7 @@
   },
   "diesel": {
    "falhas_consecutivas": 0,
-   "ultima_coleta_ok": "2026-10-28",
+   "ultima_coleta_ok": "2026-11-02",
    "ultimo_dado_novo": "2026-10-28",
    "fonte": "ANP (Levantamento de Preços de Combustíveis)",
    "ativo": true,
@@ -367,21 +367,21 @@
  },
  "integridade": [],
  "status_geral": "verde",
- "atualizado": "2026-10-28",
+ "atualizado": "2026-11-02",
  "ultima_execucao": {
-  "data": "2026-10-28",
+  "data": "2026-11-02",
   "resultados": {
    "dolar": {
     "status": "ok",
-    "novos": 0
+    "novos": 3
    },
    "euro": {
     "status": "ok",
-    "novos": 0
+    "novos": 3
    },
    "selic": {
     "status": "ok",
-    "novos": 0
+    "novos": 5
    },
    "ipca_m": {
     "status": "ok",
@@ -393,15 +393,15 @@
    },
    "dbgg": {
     "status": "ok",
-    "novos": 0
+    "novos": 1
    },
    "dlsp": {
     "status": "ok",
-    "novos": 0
+    "novos": 1
    },
    "primario": {
     "status": "ok",
-    "novos": 0
+    "novos": 1
    },
    "ibcbr": {
     "status": "ok",
@@ -409,7 +409,7 @@
    },
    "salario_min": {
     "status": "ok",
-    "novos": 0
+    "novos": 1
    },
    "focus_ipca": {
     "status": "ok",
@@ -425,11 +425,11 @@
    },
    "desocup": {
     "status": "ok",
-    "novos": 0
+    "novos": 1
    },
    "ocup": {
     "status": "ok",
-    "novos": 0
+    "novos": 1
    },
    "informal": {
     "status": "ok",
@@ -437,7 +437,7 @@
    },
    "renda_real": {
     "status": "ok",
-    "novos": 0
+    "novos": 1
    },
    "pib_tri": {
     "status": "ok",
@@ -481,7 +481,7 @@
    },
    "ibovespa": {
     "status": "ok",
-    "novos": 0
+    "novos": 3
    },
    "gasolina": {
     "status": "ok",

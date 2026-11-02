@@ -190,6 +190,51 @@
     "OK sm_cestas: 0 novo(s) calculado(s)",
     "SEM DADOS NOVOS nesta semana"
    ]
+  },
+  {
+   "data": "2026-11-02",
+   "inicio": "2026-11-02T20:40:02+00:00",
+   "novos": 21,
+   "log": [
+    "INÍCIO coleta 2026-11-02T20:40:02+00:00",
+    "OK dolar: 3 novo(s); última ref 2026-10-30",
+    "OK euro: 3 novo(s); última ref 2026-10-30",
+    "OK selic: 5 novo(s); última ref 2026-11-02",
+    "OK ipca_m: 0 novo(s); última ref 2026-09-01",
+    "OK ipca_12: 0 novo(s); última ref 2026-09-01",
+    "OK dbgg: 1 novo(s); última ref 2026-09-01",
+    "OK dlsp: 1 novo(s); última ref 2026-09-01",
+    "OK primario: 1 novo(s); última ref 2026-09-01",
+    "OK ibcbr: 0 novo(s); última ref 2026-08-01",
+    "OK salario_min: 1 novo(s); última ref 2026-11-01",
+    "OK focus_ipca: 0 novo(s); última ref 2026-10-23",
+    "OK focus_selic: 0 novo(s); última ref 2026-10-23",
+    "OK focus_pib: 0 novo(s); última ref 2026-10-23",
+    "OK desocup: 1 novo(s); última ref 2026-09-01",
+    "OK ocup: 1 novo(s); última ref 2026-09-01",
+    "OK informal: 0 novo(s); última ref 2026-06-01",
+    "REVISÃO renda_real 2026-04-01: fonte publicou 3792.0 (série mantém 3785.0)",
+    "REVISÃO renda_real 2026-05-01: fonte publicou 3759.0 (série mantém 3752.0)",
+    "REVISÃO renda_real 2026-06-01: fonte publicou 3753.0 (série mantém 3747.0)",
+    "REVISÃO renda_real 2026-07-01: fonte publicou 3767.0 (série mantém 3760.0)",
+    "REVISÃO renda_real 2026-08-01: fonte publicou 3784.0 (série mantém 3777.0)",
+    "OK renda_real: 1 novo(s); última ref 2026-09-01",
+    "OK pib_tri: 0 novo(s); última ref 2026-06-01",
+    "OK gini: 0 novo(s); última ref 2025-12-01",
+    "OK inseg_grave: 0 novo(s); última ref 2024-12-01",
+    "OK pobreza: 0 novo(s); última ref 2024-12-01",
+    "OK ext_pobreza: 0 novo(s); última ref 2024-12-01",
+    "OK cesta_sp: 0 novo(s); última ref 2026-09-01",
+    "OK caged: 0 novo(s); última ref 2026-08-01",
+    "OK dpf: 0 novo(s); última ref 2026-08-01",
+    "OK arrecadacao: 0 novo(s); última ref 2026-07-01",
+    "OK desmat_deter: 0 novo(s); última ref 2026-09-01",
+    "OK ibovespa: 3 novo(s); última ref 2026-10-30",
+    "OK gasolina: 0 novo(s); última ref 2026-10-24",
+    "OK etanol: 0 novo(s); última ref 2026-10-24",
+    "OK diesel: 0 novo(s); última ref 2026-10-24",
+    "OK sm_cestas: 0 novo(s) calculado(s)"
+   ]
   }
  ],
  "indicadores": {
@@ -3706,6 +3751,27 @@
      "ref": "2026-10-27",
      "valor": 5.3346,
      "coleta": "2026-10-28",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-28",
+     "valor": 5.342,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-29",
+     "valor": 5.3744,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-30",
+     "valor": 5.4212,
+     "coleta": "2026-11-02",
      "fonte": "Banco Central do Brasil (SGS)",
      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados/ultimos/20?formato=json"
     }
@@ -7234,6 +7300,27 @@
      "ref": "2026-10-27",
      "valor": 5.9449,
      "coleta": "2026-10-28",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-28",
+     "valor": 5.9515,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-29",
+     "valor": 6.0,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-30",
+     "valor": 6.0522,
+     "coleta": "2026-11-02",
      "fonte": "Banco Central do Brasil (SGS)",
      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21619/dados/ultimos/20?formato=json"
     }
@@ -12374,6 +12461,41 @@
      "coleta": "2026-10-28",
      "fonte": "Banco Central do Brasil (SGS)",
      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=28/10/2024&dataFinal=28/10/2026"
+    },
+    {
+     "ref": "2026-10-29",
+     "valor": 13.75,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-30",
+     "valor": 13.75,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-10-31",
+     "valor": 13.75,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-11-01",
+     "valor": 13.75,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json"
+    },
+    {
+     "ref": "2026-11-02",
+     "valor": 13.75,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/20?formato=json"
     }
    ],
    "nome": "Selic meta",
@@ -12934,6 +13056,13 @@
      "coleta": "2026-10-27",
      "fonte": "Banco Central do Brasil (SGS)",
      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026"
+    },
+    {
+     "ref": "2026-09-01",
+     "valor": 82.93,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados/ultimos/20?formato=json"
     }
    ],
    "nome": "Dívida Bruta do Governo Geral",
@@ -13116,6 +13245,13 @@
      "coleta": "2026-10-27",
      "fonte": "Banco Central do Brasil (SGS)",
      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026"
+    },
+    {
+     "ref": "2026-09-01",
+     "valor": 69.98,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados/ultimos/20?formato=json"
     }
    ],
    "nome": "Dívida Líquida do Setor Público",
@@ -13298,6 +13434,13 @@
      "coleta": "2026-10-27",
      "fonte": "Banco Central do Brasil (SGS)",
      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026"
+    },
+    {
+     "ref": "2026-09-01",
+     "valor": 0.52,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados/ultimos/20?formato=json"
     }
    ],
    "nome": "Resultado primário 12m (NFSP: + déficit)",
@@ -13676,6 +13819,13 @@
      "coleta": "2026-10-27",
      "fonte": "Banco Central do Brasil (SGS)",
      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1619/dados?formato=json&dataInicial=27/10/2024&dataFinal=27/10/2026"
+    },
+    {
+     "ref": "2026-11-01",
+     "valor": 1621.0,
+     "coleta": "2026-11-02",
+     "fonte": "Banco Central do Brasil (SGS)",
+     "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1619/dados/ultimos/20?formato=json"
     }
    ],
    "nome": "Salário mínimo vigente",
@@ -15368,6 +15518,13 @@
      "coleta": "2026-10-27",
      "fonte": "IBGE (SIDRA)",
      "url": "https://apisidra.ibge.gov.br/values/t/6381/n1/all/v/4099/p/last%2024"
+    },
+    {
+     "ref": "2026-09-01",
+     "valor": 5.2,
+     "coleta": "2026-11-02",
+     "fonte": "IBGE (SIDRA)",
+     "url": "https://apisidra.ibge.gov.br/values/t/6381/n1/all/v/4099/p/last%206"
     }
    ],
    "nome": "Taxa de desocupação",
@@ -15557,6 +15714,13 @@
      "coleta": "2026-10-27",
      "fonte": "IBGE (SIDRA)",
      "url": "https://apisidra.ibge.gov.br/values/t/6379/n1/all/v/4097/p/last%2024"
+    },
+    {
+     "ref": "2026-09-01",
+     "valor": 59.0,
+     "coleta": "2026-11-02",
+     "fonte": "IBGE (SIDRA)",
+     "url": "https://apisidra.ibge.gov.br/values/t/6379/n1/all/v/4097/p/last%206"
     }
    ],
    "nome": "Nível de ocupação",
@@ -15935,6 +16099,13 @@
      "coleta": "2026-10-27",
      "fonte": "IBGE (SIDRA)",
      "url": "https://apisidra.ibge.gov.br/values/t/6390/n1/all/v/5933/p/last%2024"
+    },
+    {
+     "ref": "2026-09-01",
+     "valor": 3790.0,
+     "coleta": "2026-11-02",
+     "fonte": "IBGE (SIDRA)",
+     "url": "https://apisidra.ibge.gov.br/values/t/6390/n1/all/v/5933/p/last%206"
     }
    ],
    "nome": "Rendimento médio real habitual",
@@ -22629,6 +22800,27 @@
      "coleta": "2026-10-28",
      "fonte": "B3 (Estatísticas de Índices)",
      "url": "https://sistemaswebb3-listados.b3.com.br/indexStatisticsProxy/IndexCall/GetPortfolioDay/eyJpbmRleCI6IklCT1YiLCJsYW5ndWFnZSI6InB0LWJyIiwieWVhciI6IjIwMjYifQ=="
+    },
+    {
+     "ref": "2026-10-28",
+     "valor": 171006.1,
+     "coleta": "2026-11-02",
+     "fonte": "B3 (Estatísticas de Índices)",
+     "url": "https://sistemaswebb3-listados.b3.com.br/indexStatisticsProxy/IndexCall/GetPortfolioDay/eyJpbmRleCI6IklCT1YiLCJsYW5ndWFnZSI6InB0LWJyIiwieWVhciI6IjIwMjYifQ=="
+    },
+    {
+     "ref": "2026-10-29",
+     "valor": 169186.42,
+     "coleta": "2026-11-02",
+     "fonte": "B3 (Estatísticas de Índices)",
+     "url": "https://sistemaswebb3-listados.b3.com.br/indexStatisticsProxy/IndexCall/GetPortfolioDay/eyJpbmRleCI6IklCT1YiLCJsYW5ndWFnZSI6InB0LWJyIiwieWVhciI6IjIwMjYifQ=="
+    },
+    {
+     "ref": "2026-10-30",
+     "valor": 167921.8,
+     "coleta": "2026-11-02",
+     "fonte": "B3 (Estatísticas de Índices)",
+     "url": "https://sistemaswebb3-listados.b3.com.br/indexStatisticsProxy/IndexCall/GetPortfolioDay/eyJpbmRleCI6IklCT1YiLCJsYW5ndWFnZSI6InB0LWJyIiwieWVhciI6IjIwMjYifQ=="
     }
    ],
    "nome": "Ibovespa (fechamento)",
@@ -24964,7 +25156,48 @@
    "origem": "api"
   }
  ],
- "revisoes": [],
+ "revisoes": [
+  {
+   "id": "renda_real",
+   "ref": "2026-04-01",
+   "valor_original": 3785.0,
+   "valor_novo": 3792.0,
+   "coleta": "2026-11-02",
+   "url": "https://apisidra.ibge.gov.br/values/t/6390/n1/all/v/5933/p/last%206"
+  },
+  {
+   "id": "renda_real",
+   "ref": "2026-05-01",
+   "valor_original": 3752.0,
+   "valor_novo": 3759.0,
+   "coleta": "2026-11-02",
+   "url": "https://apisidra.ibge.gov.br/values/t/6390/n1/all/v/5933/p/last%206"
+  },
+  {
+   "id": "renda_real",
+   "ref": "2026-06-01",
+   "valor_original": 3747.0,
+   "valor_novo": 3753.0,
+   "coleta": "2026-11-02",
+   "url": "https://apisidra.ibge.gov.br/values/t/6390/n1/all/v/5933/p/last%206"
+  },
+  {
+   "id": "renda_real",
+   "ref": "2026-07-01",
+   "valor_original": 3760.0,
+   "valor_novo": 3767.0,
+   "coleta": "2026-11-02",
+   "url": "https://apisidra.ibge.gov.br/values/t/6390/n1/all/v/5933/p/last%206"
+  },
+  {
+   "id": "renda_real",
+   "ref": "2026-08-01",
+   "valor_original": 3777.0,
+   "valor_novo": 3784.0,
+   "coleta": "2026-11-02",
+   "url": "https://apisidra.ibge.gov.br/values/t/6390/n1/all/v/5933/p/last%206"
+  }
+ ],
  "baseline_selos": {
   "dolar": "48f7484cbcda5b1f1afa82827343e0af671ad420e6c42ca333654ad0b4fc8c2c",
   "euro": "9d3fa1857891744b24da14a1c265b13ddec5fd9100dd42f2cf494ddc6ce5ea67",
